@@ -15,4 +15,4 @@ name: heartRateModule
 moduleid: com.icsciences.heartRateModule
 guid: c6799711-2104-4bde-bdc5-8eecf4ad93d7
 platform: iphone
-minsdk: 3.2.3.GA
+minsdk: 3.5.0.GA

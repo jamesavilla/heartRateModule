@@ -92,20 +92,26 @@
 
 #pragma mark - LSHardwareConnectorDelegate
 
+
+
 - (PedometerUserDownLoadInfo *)hardwareConnectorGetPedometerDownloadInfoForSensor:(LSHardwareSensor *)sensor {
     PedometerUserDownLoadInfo *info = [PedometerUserDownLoadInfo new];
-    info.height = 1.70;
+    info.height = heightVar; //METERS I THINK!
     info.stride = 0.78;
     info.weekStart = 1;
     info.weekTargetCalories = 0;
     info.weekTargetDistance = 0;
     info.weekTargetExerciseAmount = 2;
     info.weekTargetSteps = 14000;
-    info.weight = 65.5;
+    info.weight = weightVar; //KILOGRAMS I THINK!
     
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self logText:@"配置计步器下载信息"];
-    });
+    [self logText:@"USERRRRRRRRRRRRRRRRRRR INFOOOOOOOOOOOOOOOOO"];
+    [self logText:[NSString stringWithFormat:@"height %f",heightVar]];
+    [self logText:[NSString stringWithFormat:@"weight %f",weightVar]];
+    
+    //dispatch_async(dispatch_get_main_queue(), ^{
+        //[self logText:@"配置计步器下载信息"];
+    //});
     
     return info;
 }
@@ -114,6 +120,29 @@
 -(void)pairConnectorDiscoveredPairingSensor:(LSHardwareSensor*)sensor {
     NSLog(@"hardwareConnectorDiscoveredPairingSensor");
     [self logText:@"Found that pairing mode devices, automatic pairing"];
+    
+    [self logText:[NSString stringWithFormat:@"SENSOR NAME %@",sensor.sensorName]];
+    
+    NSString *result = [NSString stringWithFormat:@"UNKNOWN"];
+    
+    if ([sensor.sensorName isEqualToString:@"405A0"]) {
+        result = [NSString stringWithFormat:@"TRACKER"];
+    }
+    else if ([sensor.sensorName isEqualToString:@"12690"]) {
+        result = [NSString stringWithFormat:@"SCALE"];
+    }
+    else if ([sensor.sensorName isEqualToString:@"1018B"]) {
+        result = [NSString stringWithFormat:@"ARMCUFF"];
+    }
+    else if ([sensor.sensorName isEqualToString:@"810A0"]) {
+        result = [NSString stringWithFormat:@"WRISTCUFF"];
+    }
+    //sensor.sensorName = result;
+    //result = sensor.sensorName;
+    
+    NSDictionary *event = [NSDictionary dictionaryWithObjectsAndKeys:result,@"result",nil];
+    [self _fireEventToListener:@"sensorPaired" withObject:event listener:pairedCallback thisObject:nil];
+    
     //auto Pair
     [[LSHardwareConnector shareConnector] pairWithHardwareSensor:sensor];
     
@@ -123,7 +152,7 @@
     [self logText:@"The pairing is successful"];
     NSLog(@"hardwareConnectorPairedSensor");
     
-    NSString *result = [NSString stringWithFormat:@"Device Paired!"];
+    NSString *result = sensor.sensorName;
     
     NSDictionary *event = [NSDictionary dictionaryWithObjectsAndKeys:result,@"result",nil];
     [self _fireEventToListener:@"devicePaired" withObject:event listener:pairedCallback thisObject:nil];
@@ -137,9 +166,13 @@
  */
 -(void)hardwareConnectorReceiveWeightMeasurementData:(WeightData*)data {
     [self logText:@"\n收到体重秤数据"];
-    [self logText:[NSString stringWithFormat:@"weight %f",data.weight]];
+    [self logText:[NSString stringWithFormat:@"weight %f",(float)data.weight]];
     [self logText:[NSString stringWithFormat:@"pbf%f",data.pbf]];
     NSLog(@"hardwareConnectorPairedSensor");
+    
+    NSString *weightString = [NSString stringWithFormat:@"%f",data.weight];
+    NSDictionary *event = [NSDictionary dictionaryWithObjectsAndKeys:weightString,@"weight",nil];
+    [self _fireEventToListener:@"success" withObject:event listener:successCallback thisObject:nil];
     
 }
 
@@ -151,6 +184,20 @@
      [self logText:@"\n收到计步器数据"];
      [self logText:[NSString stringWithFormat:@"walkSteps %ld",(long)data.walkSteps]];
      [self logText:[NSString stringWithFormat:@"runSteps %ld",(long)data.runSteps]];
+     [self logText:[NSString stringWithFormat:@"distance %ld",(long)data.distance]];
+     [self logText:[NSString stringWithFormat:@"dategoeshere %@",data.date]];
+     
+     NSString *walkSteps = [NSString stringWithFormat:@"%ld",(long)data.walkSteps];
+     NSString *runSteps = [NSString stringWithFormat:@"%ld",(long)data.runSteps];
+     NSString *distanceVar = [NSString stringWithFormat:@"%ld",(long)data.distance];
+     NSString *caloriesVar = [NSString stringWithFormat:@"%ld",(long)data.calories];
+     NSString *date = [NSString stringWithFormat:@"%@",data.date];
+     NSString *battery = [NSString stringWithFormat:@"%ld",(long)data.battery];
+     NSString *sleepStatus = [NSString stringWithFormat:@"%ld",(long)data.sleepStatus];
+     NSString *intensityLevel = [NSString stringWithFormat:@"%ld",(long)data.intensityLevel];
+     
+     NSDictionary *event = [NSDictionary dictionaryWithObjectsAndKeys:walkSteps,@"walking",runSteps,@"running",date,@"date",distanceVar,@"distance",caloriesVar,@"calories",battery,@"battery",intensityLevel,@"intensityLevel",intensityLevel,@"intensityLevel",sleepStatus,@"sleepStatus",nil];
+     [self _fireEventToListener:@"success" withObject:event listener:successCallback thisObject:nil];
  }
 
 /**
@@ -181,7 +228,7 @@
  *  @param data 厨房称数据
  */
 -(void)hardwareConnectorReceiveKitchenScaleMeasurementData:(KitchenScaleData*)data{
-    [self logText:@"\n收到厨房称数据"];
+    [self logText:@"\ntest1"];
     
 }
 
@@ -191,7 +238,7 @@
  *  @param data 身高数据
  */
 -(void)hardwareConnectorReceiveHeightMeasurementData:(HeightData*)data {
-    [self logText:@"\n收到身高数据"];
+    [self logText:@"\ntest2"];
 }
 
 /**
@@ -200,8 +247,11 @@
  *  @param data 体重秤数据
  */
 -(void)hardwareConnectorReceiveGeneralWeightMeasurementData:(WeightData*)data {
-    [self logText:@"\n收到体重秤数据"];
+    [self logText:@"\ntest3"];
     
+    NSString *weightString = [NSString stringWithFormat:@"%f",(float)data.weight];
+    NSDictionary *event = [NSDictionary dictionaryWithObjectsAndKeys:weightString,@"weight",nil];
+    [self _fireEventToListener:@"success" withObject:event listener:successCallback thisObject:nil];
 }
 
 #pragma Public APIs
@@ -222,7 +272,47 @@
     
     NSString *result = [NSString stringWithFormat:@"Scanning for device!!!"];
 	NSLog(@"[HEARTRATEMODULE] %@", result);
+    
     [[LSHardwareConnector shareConnector] startScanningWithDelegate:self withEnalbeSensorTypes:@[[NSNumber numberWithInt:LS_SENSOR_TYPE_PEDOMETER],[NSNumber numberWithInt:LS_SENSOR_TYPE_WEIGHT_SCALE],[NSNumber numberWithInt:LS_SENSOR_TYPE_GENERAL_WEIGHT_SCALE],[NSNumber numberWithInt:LS_SENSOR_TYPE_BLOODPRESSURE]]];
+}
+
+-(void)startScanningForScale:(id)args
+{
+    ENSURE_UI_THREAD_1_ARG(args);
+    ENSURE_SINGLE_ARG(args,NSDictionary);
+    id success = [args objectForKey:@"success"];
+    id cancel = [args objectForKey:@"cancel"];
+    id devicePaired = [args objectForKey:@"devicePaired"];
+    RELEASE_TO_NIL(successCallback);
+    RELEASE_TO_NIL(cancelCallback);
+    RELEASE_TO_NIL(pairedCallback);
+    successCallback = [success retain];
+    cancelCallback = [cancel retain];
+    pairedCallback = [devicePaired retain];
+    
+    NSString *result = [NSString stringWithFormat:@"Scanning for device!!!"];
+	NSLog(@"[HEARTRATEMODULE] %@", result);
+    [[LSHardwareConnector shareConnector] startScanningWithDelegate:self withEnalbeSensorTypes:@[[NSNumber numberWithInt:LS_SENSOR_TYPE_WEIGHT_SCALE],[NSNumber numberWithInt:LS_SENSOR_TYPE_GENERAL_WEIGHT_SCALE]]];
+}
+
+
+-(void)startScanningForFitnessTracker:(id)args
+{
+    ENSURE_UI_THREAD_1_ARG(args);
+    ENSURE_SINGLE_ARG(args,NSDictionary);
+    id success = [args objectForKey:@"success"];
+    id cancel = [args objectForKey:@"cancel"];
+    id devicePaired = [args objectForKey:@"devicePaired"];
+    RELEASE_TO_NIL(successCallback);
+    RELEASE_TO_NIL(cancelCallback);
+    RELEASE_TO_NIL(pairedCallback);
+    successCallback = [success retain];
+    cancelCallback = [cancel retain];
+    pairedCallback = [devicePaired retain];
+    
+    NSString *result = [NSString stringWithFormat:@"Scanning for device!!!"];
+    NSLog(@"[FITNESSTRACKER] %@", result);
+    [[LSHardwareConnector shareConnector] startScanningWithDelegate:self withEnalbeSensorTypes:@[[NSNumber numberWithInt:LS_SENSOR_TYPE_PEDOMETER]]];
 }
 
 -(NSNumber*)checkForPairedDevices:(id)args
@@ -230,13 +320,38 @@
 
     NSInteger i = 0;
     NSArray *pairedDevices = [[LSHardwareConnector shareConnector] pairedSensors];
-    //[self logText:[NSString stringWithFormat:@"Paired Count %lu",(unsigned long)pairedDevices.count]];
+    [self logText:[NSString stringWithFormat:@"Paired Count %lu",(unsigned long)pairedDevices.count]];
     for (LSHardwareSensor *sensor in pairedDevices) {
-        //[self logText:[NSString stringWithFormat:@"Paired DeviceName %@",sensor.sensorName]];
+        [self logText:[NSString stringWithFormat:@"Paired DeviceName %@",sensor.sensorName]];
         i = 1;
     }
     
     return NUMINT(i);
+}
+
+-(void)removeDevicePairing:(id)args
+{
+    NSArray *pairedDevices = [[LSHardwareConnector shareConnector] pairedSensors];
+    for (LSHardwareSensor *sensor in pairedDevices) {
+        [self logText:[NSString stringWithFormat:@"Paired DeviceName %@",sensor.sensorName]];
+        [[LSHardwareConnector shareConnector] forgetPairedSensorWithSensor:sensor];
+    }
+}
+
+-(void)setUserInfo:(id)args
+{
+    NSLog(@"TESTTTTTTTTTTTTTTTTTTTTT");
+
+    enum Args {
+        heightVarArg = 0,
+        weightVarArg = 1
+    };
+    
+    // Use the TiUtils methods to get the values from the arguments
+    heightVar = [TiUtils floatValue:[args objectAtIndex:heightVarArg] def:0.0];
+    weightVar = [TiUtils floatValue:[args objectAtIndex:weightVarArg] def:0.0];
+
+    NSLog(@"[SETUSERINFO]", heightVar, weightVar);
 }
 
 @end

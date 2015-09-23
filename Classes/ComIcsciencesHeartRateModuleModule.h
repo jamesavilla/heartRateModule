@@ -13,6 +13,9 @@
     KrollCallback *successCallback;
     KrollCallback *cancelCallback;
     KrollCallback *pairedCallback;
+    
+    float heightVar;
+    float weightVar;
 }
 
 @end
