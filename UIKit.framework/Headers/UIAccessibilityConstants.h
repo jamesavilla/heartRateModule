@@ -2,11 +2,13 @@
 //  UIAccessibilityConstants.h
 //  UIKit
 //
-//  Copyright (c) 2009-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2009-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKitDefines.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*
  Accessibility Traits
@@ -137,6 +139,20 @@ UIKIT_EXTERN NSString *const UIAccessibilityAnnouncementKeyStringValue NS_AVAILA
 // The corresponding value is an NSNumber representing whether VoiceOver successfully outputted the announcement.
 UIKIT_EXTERN NSString *const UIAccessibilityAnnouncementKeyWasSuccessful NS_AVAILABLE_IOS(6_0);
 
+
+// In order to know when an assistive technology has focused on an element listen to this notification
+// The newly focused element will be referenced by UIAccessibilityElementFocusedKeyElement in the userInfo dictionary.
+UIKIT_EXTERN NSString *const UIAccessibilityElementFocusedNotification NS_AVAILABLE_IOS(9_0);
+
+// The corresponding value is the element that is now focused by the assistive technology.
+UIKIT_EXTERN NSString *const UIAccessibilityFocusedElementKey NS_AVAILABLE_IOS(9_0);
+
+// The corresponding value is the element that had previously been focused by the assistive technology.
+UIKIT_EXTERN NSString *const UIAccessibilityUnfocusedElementKey NS_AVAILABLE_IOS(9_0);
+
+// The corresponding value is the identifier of the assistive technology
+UIKIT_EXTERN NSString *const UIAccessibilityAssistiveTechnologyKey NS_AVAILABLE_IOS(9_0);
+
 /*
  Should be posted after accessibilityScroll: is called and the scrolling action has completed. 
  A string representing the status of the new scroll position should be used as the argument 
@@ -145,6 +161,52 @@ UIKIT_EXTERN NSString *const UIAccessibilityAnnouncementKeyWasSuccessful NS_AVAI
  The argument is a NSString.
  */
 UIKIT_EXTERN UIAccessibilityNotifications UIAccessibilityPageScrolledNotification NS_AVAILABLE_IOS(4_2);
+
+/*
+ Should be posted to pause an assistive technology's operations temporarily.
+ For example, you may want to pause scanning in Switch Control while your app plays an animation.
+ An identifier representing the assistive technology should be used as the argument.
+ Currently, these notifications only apply to Switch Control.
+ The notifications must be balanced.  That is, every UIAccessibilityPauseAssistiveTechnologyNotification
+ should be followed by a matching UIAccessibilityResumeAssistiveTechnologyNotification with the same argument.
+ If the user performs an action that requires the assistive technology to resume operations,
+ it may do so before it receives the corresponding UIAccessibilityResumeAssistiveTechnologyNotification.
+ The argument is a NSString.
+ */
+UIKIT_EXTERN UIAccessibilityNotifications UIAccessibilityPauseAssistiveTechnologyNotification NS_AVAILABLE_IOS(8_0);
+UIKIT_EXTERN UIAccessibilityNotifications UIAccessibilityResumeAssistiveTechnologyNotification NS_AVAILABLE_IOS(8_0);
+
+/*
+ The following identifier should be used as the argument when posting a UIAccessibilityPauseAssistiveTechnologyNotification
+ or a UIAccessibilityResumeAssistiveTechnologyNotification.
+ */
+UIKIT_EXTERN NSString *const UIAccessibilityNotificationSwitchControlIdentifier NS_AVAILABLE_IOS(8_0);
+
+// Used to identify VoiceOver as the assistive technology.
+UIKIT_EXTERN NSString *const UIAccessibilityNotificationVoiceOverIdentifier NS_AVAILABLE_IOS(9_0);
+
+
+/*
+ The following values describe how the receiver's elements should be navigated by an assistive technology.
+ */
+typedef NS_ENUM(NSInteger, UIAccessibilityNavigationStyle) {
+    /*
+     The assistive technology will automatically determine how the receiver's elements should be navigated.
+     This is the default value.
+     */
+    UIAccessibilityNavigationStyleAutomatic = 0,
+    
+    /*
+     The receiver's elements should be navigated as separate elements.
+     */
+    UIAccessibilityNavigationStyleSeparate = 1,
+    
+    /*
+     The receiver’s elements should be combined and navigated as a single item.
+     When the combined item has been selected, the assistive technology will navigate each element separately.
+     */
+    UIAccessibilityNavigationStyleCombined = 2,
+} NS_ENUM_AVAILABLE_IOS(8_0);
 
 /*
  Accessibility Speech Attributes
@@ -167,5 +229,5 @@ UIKIT_EXTERN NSString *const UIAccessibilitySpeechAttributeLanguage NS_AVAILABLE
 // Default value == 1.0f.
 UIKIT_EXTERN NSString *const UIAccessibilitySpeechAttributePitch NS_AVAILABLE_IOS(7_0);
 
-
+NS_ASSUME_NONNULL_END
 

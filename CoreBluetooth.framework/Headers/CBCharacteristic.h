@@ -5,11 +5,13 @@
  *	@copyright 2011 Apple, Inc. All rights reserved.
  */
 
-#import <CoreBluetooth/CBDefines.h>
+#ifndef _CORE_BLUETOOTH_H_
+#warning Please do not import this header file directly. Use <CoreBluetooth/CoreBluetooth.h> instead.
+#endif
 
-#import <Foundation/Foundation.h>
+#import <CoreBluetooth/CBAttribute.h>
 
-
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  *  @enum CBCharacteristicProperties
@@ -44,8 +46,6 @@ typedef NS_OPTIONS(NSUInteger, CBCharacteristicProperties) {
 
 
 
-@class CBService, CBUUID;
-
 /*!
  *  @class CBCharacteristic
  *
@@ -54,7 +54,7 @@ typedef NS_OPTIONS(NSUInteger, CBCharacteristicProperties) {
  *
  */
 NS_CLASS_AVAILABLE(10_7, 5_0)
-CB_EXTERN_CLASS @interface CBCharacteristic : NSObject
+CB_EXTERN_CLASS @interface CBCharacteristic : CBAttribute
 
 /*!
  * @property service
@@ -63,16 +63,7 @@ CB_EXTERN_CLASS @interface CBCharacteristic : NSObject
  *      A back-pointer to the service this characteristic belongs to.
  *
  */
-@property(weak, readonly, nonatomic) CBService *service;
-
-/*!
- * @property UUID
- *
- *  @discussion
- *      The Bluetooth UUID of the characteristic.
- *
- */
-@property(readonly, nonatomic) CBUUID *UUID;
+@property(assign, readonly, nonatomic) CBService *service;
 
 /*!
  * @property properties
@@ -90,7 +81,7 @@ CB_EXTERN_CLASS @interface CBCharacteristic : NSObject
  *      The value of the characteristic.
  *
  */
-@property(retain, readonly) NSData *value;
+@property(retain, readonly, nullable) NSData *value;
 
 /*!
  * @property descriptors
@@ -99,7 +90,7 @@ CB_EXTERN_CLASS @interface CBCharacteristic : NSObject
  *      A list of the CBDescriptors that have so far been discovered in this characteristic.
  *
  */
-@property(retain, readonly) NSArray *descriptors;
+@property(retain, readonly, nullable) NSArray<CBDescriptor *> *descriptors;
 
 /*!
  * @property isBroadcasted
@@ -108,7 +99,7 @@ CB_EXTERN_CLASS @interface CBCharacteristic : NSObject
  *      Whether the characteristic is currently broadcasted or not.
  *
  */
-@property(readonly) BOOL isBroadcasted;
+@property(readonly) BOOL isBroadcasted NS_DEPRECATED(NA, NA, 5_0, 8_0);
 
 /*!
  * @property isNotifying
@@ -168,12 +159,11 @@ CB_EXTERN_CLASS @interface CBMutableCharacteristic : CBCharacteristic
  *
  *  @discussion For notifying characteristics, the set of currently subscribed centrals.
  */
-@property(retain, readonly) NSArray *subscribedCentrals NS_AVAILABLE(NA, 7_0);
+@property(retain, readonly, nullable) NSArray<CBCentral *> *subscribedCentrals NS_AVAILABLE(NA, 7_0);
 
-@property(retain, readwrite, nonatomic) CBUUID *UUID;
 @property(assign, readwrite, nonatomic) CBCharacteristicProperties properties;
-@property(retain, readwrite) NSData *value;
-@property(retain, readwrite) NSArray *descriptors;
+@property(retain, readwrite, nullable) NSData *value;
+@property(retain, readwrite, nullable) NSArray<CBDescriptor *> *descriptors;
 
 /*!
  *  @method initWithType:properties:value:permissions
@@ -186,6 +176,8 @@ CB_EXTERN_CLASS @interface CBMutableCharacteristic : CBCharacteristic
  *  @discussion			Returns an initialized characteristic.
  *
  */
-- (id)initWithType:(CBUUID *)UUID properties:(CBCharacteristicProperties)properties value:(NSData *)value permissions:(CBAttributePermissions)permissions;
+- (instancetype)initWithType:(CBUUID *)UUID properties:(CBCharacteristicProperties)properties value:(nullable NSData *)value permissions:(CBAttributePermissions)permissions NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END

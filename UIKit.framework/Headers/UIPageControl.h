@@ -2,25 +2,16 @@
 //  UIPageControl.h
 //  UIKit
 //
-//  Copyright (c) 2008-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2008-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIControl.h>
 #import <UIKit/UIKitDefines.h>
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIPageControl : UIControl {
-  @private
-    NSMutableArray* _indicators;
-    NSInteger       _currentPage;
-    NSInteger       _displayedPage;
-    struct {
-        unsigned int hideForSinglePage:1;
-        unsigned int defersCurrentPageDisplay:1;
-    } _pageControlFlags;
-    UIImage*        _currentPageImage;
-    UIImage*        _pageImage;
-}
+NS_ASSUME_NONNULL_BEGIN
+
+NS_CLASS_AVAILABLE_IOS(2_0) @interface UIPageControl : UIControl 
 
 @property(nonatomic) NSInteger numberOfPages;          // default is 0
 @property(nonatomic) NSInteger currentPage;            // default is 0. value pinned to 0..numberOfPages-1
@@ -32,7 +23,9 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIPageControl : UIControl {
 
 - (CGSize)sizeForNumberOfPages:(NSInteger)pageCount;   // returns minimum size required to display dots for given page count. can be used to size control if page count could change
 
-@property(nonatomic,retain) UIColor *pageIndicatorTintColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
-@property(nonatomic,retain) UIColor *currentPageIndicatorTintColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
+@property(nullable, nonatomic,strong) UIColor *pageIndicatorTintColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
+@property(nullable, nonatomic,strong) UIColor *currentPageIndicatorTintColor NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14E46" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="BleDevice" representedClassName="BleDevice" syncable="YES">
+        <attribute name="broadcastID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deviceID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deviceName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deviceSN" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deviceType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="deviceUserNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="firmwareVersion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hardwareVersion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="modelNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="password" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="protocolType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="softwareVersion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="whoBind" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DeviceUser" inverseName="devices" inverseEntity="DeviceUser" syncable="YES"/>
+    </entity>
+    <entity name="DeviceAlarmClock" representedClassName="DeviceAlarmClock" syncable="YES">
+        <attribute name="alarmClockDay" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="alarmClockId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="alarmClockTime" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="friday" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="monday" optional="YES" attributeType="Boolean" defaultValueString="0" syncable="YES"/>
+        <attribute name="saturday" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="sunday" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="thursday" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="tuesday" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="wednesday" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="deviceUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DeviceUserProfiles" inverseName="deviceAlarmClock" inverseEntity="DeviceUserProfiles" syncable="YES"/>
+    </entity>
+    <entity name="DeviceUser" representedClassName="DeviceUser" syncable="YES">
+        <attribute name="athleteLevel" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="birthday" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="devices" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="BleDevice" inverseName="whoBind" inverseEntity="BleDevice" syncable="YES"/>
+        <relationship name="userprofiles" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DeviceUserProfiles" inverseName="whoSet" inverseEntity="DeviceUserProfiles" syncable="YES"/>
+    </entity>
+    <entity name="DeviceUserProfiles" representedClassName="DeviceUserProfiles" syncable="YES">
+        <attribute name="alarmClockId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="distanceUnit" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="hourFormat" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="scanFilterId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weekStart" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="weekTargetSteps" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="weightTarget" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="weightUnit" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="deviceAlarmClock" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DeviceAlarmClock" inverseName="deviceUser" inverseEntity="DeviceAlarmClock" syncable="YES"/>
+        <relationship name="hasScanFilter" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScanFilter" inverseName="deviceUser" inverseEntity="ScanFilter" syncable="YES"/>
+        <relationship name="whoSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DeviceUser" inverseName="userprofiles" inverseEntity="DeviceUser" syncable="YES"/>
+    </entity>
+    <entity name="ScanFilter" representedClassName="ScanFilter" syncable="YES">
+        <attribute name="broadcastType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="enableBloodPressure" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="enableFatScale" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="enableHeightMeter" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="enableKitchenScale" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="enablePedometer" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="enableWeightScale" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="filterId" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="deviceUser" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="DeviceUserProfiles" inverseName="hasScanFilter" inverseEntity="DeviceUserProfiles" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="BleDevice" positionX="-29" positionY="-36" width="128" height="268"/>
+        <element name="DeviceAlarmClock" positionX="-551" positionY="153" width="128" height="208"/>
+        <element name="DeviceUser" positionX="-344" positionY="-135" width="128" height="178"/>
+        <element name="DeviceUserProfiles" positionX="-342" positionY="260" width="128" height="223"/>
+        <element name="ScanFilter" positionX="-92" positionY="297" width="128" height="178"/>
+    </elements>
+</model>

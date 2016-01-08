@@ -2,30 +2,26 @@
 //  UIMenuController.h
 //  UIKit
 //
-//  Copyright (c) 2009-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2009-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKitDefines.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, UIMenuControllerArrowDirection) {
     UIMenuControllerArrowDefault, // up or down based on screen location
-#if __IPHONE_3_2 <= __IPHONE_OS_VERSION_MAX_ALLOWED
-    UIMenuControllerArrowUp,
-    UIMenuControllerArrowDown,
-    UIMenuControllerArrowLeft,
-    UIMenuControllerArrowRight,
-#endif
+    UIMenuControllerArrowUp NS_ENUM_AVAILABLE_IOS(3_2),
+    UIMenuControllerArrowDown NS_ENUM_AVAILABLE_IOS(3_2),
+    UIMenuControllerArrowLeft NS_ENUM_AVAILABLE_IOS(3_2),
+    UIMenuControllerArrowRight NS_ENUM_AVAILABLE_IOS(3_2),
 };
 
-@class UIView;
+@class UIView, UIMenuItem;
 
-NS_CLASS_AVAILABLE_IOS(3_0) @interface UIMenuController : NSObject {
-  @private
-    CGRect _targetRect;
-    UIMenuControllerArrowDirection _arrowDirection;
-}
+NS_CLASS_AVAILABLE_IOS(3_0) @interface UIMenuController : NSObject
 
 + (UIMenuController *)sharedMenuController;
 
@@ -35,7 +31,7 @@ NS_CLASS_AVAILABLE_IOS(3_0) @interface UIMenuController : NSObject {
 - (void)setTargetRect:(CGRect)targetRect inView:(UIView *)targetView;
 @property(nonatomic) UIMenuControllerArrowDirection arrowDirection NS_AVAILABLE_IOS(3_2); // default is UIMenuControllerArrowDefault
 		
-@property(nonatomic,copy) NSArray *menuItems NS_AVAILABLE_IOS(3_2); // default is nil. these are in addition to the standard items
+@property(nullable, nonatomic,copy) NSArray<UIMenuItem *> *menuItems NS_AVAILABLE_IOS(3_2); // default is nil. these are in addition to the standard items
 
 - (void)update;	
 
@@ -49,16 +45,13 @@ UIKIT_EXTERN NSString *const UIMenuControllerWillHideMenuNotification;
 UIKIT_EXTERN NSString *const UIMenuControllerDidHideMenuNotification;
 UIKIT_EXTERN NSString *const UIMenuControllerMenuFrameDidChangeNotification;
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UIMenuItem : NSObject {
-  @private
-    NSString *_title;
-    SEL       _action;
-    BOOL      _dontDismiss;
-}
+NS_CLASS_AVAILABLE_IOS(3_2) @interface UIMenuItem : NSObject 
 
-- (id)initWithTitle:(NSString *)title action:(SEL)action;
+- (instancetype)initWithTitle:(NSString *)title action:(SEL)action NS_DESIGNATED_INITIALIZER;
 
-@property(nonatomic,copy) NSString *title;     // default is nil
-@property(nonatomic)      SEL       action;    // default is NULL
+@property(nonatomic,copy) NSString *title;
+@property(nonatomic)      SEL       action;
 
 @end
+
+NS_ASSUME_NONNULL_END

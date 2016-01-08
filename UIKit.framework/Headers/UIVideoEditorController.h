@@ -2,7 +2,7 @@
 //  UIVideoEditorController.h
 //  UIKit
 //
-//  Copyright (c) 2009-2013, Apple Inc.. All rights reserved.
+//  Copyright (c) 2009-2014 Apple Inc.. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,23 +10,15 @@
 #import <UIKit/UIKitDefines.h>
 #import <UIKit/UIImagePickerController.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol UIVideoEditorControllerDelegate;
 
-NS_CLASS_AVAILABLE_IOS(3_1) @interface UIVideoEditorController : UINavigationController {
-  @private
-    int                               _previousStatusBarStyle;
-    NSMutableDictionary              *_properties;
-    
-    struct {
-        unsigned int visible:1;
-        unsigned int isCleaningUp:1;
-        unsigned int didRevertStatusBar:1;
-    } _flags;
-}
+NS_CLASS_AVAILABLE_IOS(3_1) @interface UIVideoEditorController : UINavigationController
 
 + (BOOL)canEditVideoAtPath:(NSString *)videoPath NS_AVAILABLE_IOS(3_1);
 
-@property(nonatomic,assign)    id <UINavigationControllerDelegate, UIVideoEditorControllerDelegate> delegate;
+@property(nullable, nonatomic,assign)    id <UINavigationControllerDelegate, UIVideoEditorControllerDelegate> delegate;
 
 @property(nonatomic, copy)     NSString                              *videoPath;
 @property(nonatomic)           NSTimeInterval                        videoMaximumDuration; // default value is 10 minutes. set to 0 to specify no maximum duration.
@@ -34,7 +26,7 @@ NS_CLASS_AVAILABLE_IOS(3_1) @interface UIVideoEditorController : UINavigationCon
 
 @end
 
-@protocol UIVideoEditorControllerDelegate<NSObject>
+ @protocol UIVideoEditorControllerDelegate<NSObject>
 @optional
 // The editor does not dismiss itself; the client dismisses it in these callbacks.
 // The delegate will receive exactly one of the following callbacks, depending whether the user
@@ -44,3 +36,5 @@ NS_CLASS_AVAILABLE_IOS(3_1) @interface UIVideoEditorController : UINavigationCon
 - (void)videoEditorControllerDidCancel:(UIVideoEditorController *)editor;
 
 @end
+
+NS_ASSUME_NONNULL_END

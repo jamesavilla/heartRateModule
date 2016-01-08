@@ -2,11 +2,13 @@
 //  UIActivity.h
 //  UIKit
 //
-//  Copyright 2012-2013, Apple Inc. All rights reserved.
+//  Copyright 2012-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKitDefines.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class UIImage, UIViewController;
 
@@ -24,6 +26,7 @@ UIKIT_EXTERN NSString *const UIActivityTypePostToFlickr       NS_AVAILABLE_IOS(7
 UIKIT_EXTERN NSString *const UIActivityTypePostToVimeo        NS_AVAILABLE_IOS(7_0);
 UIKIT_EXTERN NSString *const UIActivityTypePostToTencentWeibo NS_AVAILABLE_IOS(7_0);
 UIKIT_EXTERN NSString *const UIActivityTypeAirDrop            NS_AVAILABLE_IOS(7_0);
+UIKIT_EXTERN NSString *const UIActivityTypeOpenInIBooks       NS_AVAILABLE_IOS(9_0);
 
 typedef NS_ENUM(NSInteger, UIActivityCategory) {
     UIActivityCategoryAction,
@@ -36,18 +39,19 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface UIActivity : NSObject
 
 + (UIActivityCategory)activityCategory NS_AVAILABLE_IOS(7_0); // default is UIActivityCategoryAction.
 
-- (NSString *)activityType;       // default returns nil. subclass may override to return custom activity type that is reported to completion handler
-- (NSString *)activityTitle;      // default returns nil. subclass must override and must return non-nil value
-- (UIImage *)activityImage;       // default returns nil. subclass must override and must return non-nil value
+- (nullable NSString *)activityType;       // default returns nil. subclass may override to return custom activity type that is reported to completion handler
+- (nullable NSString *)activityTitle;      // default returns nil. subclass must override and must return non-nil value
+- (nullable UIImage *)activityImage;       // default returns nil. subclass must override and must return non-nil value
 
 - (BOOL)canPerformWithActivityItems:(NSArray *)activityItems;   // override this to return availability of activity based on items. default returns NO
 - (void)prepareWithActivityItems:(NSArray *)activityItems;      // override to extract items and set up your HI. default does nothing
 
-- (UIViewController *)activityViewController;   // return non-nil to have vC presented modally. call activityDidFinish at end. default returns nil
+- (nullable UIViewController *)activityViewController;   // return non-nil to have view controller presented modally. call activityDidFinish at end. default returns nil
 - (void)performActivity;                        // if no view controller, this method is called. call activityDidFinish when done. default calls [self activityDidFinish:NO]
 
 // state method
 
-- (void)activityDidFinish:(BOOL)completed;   // activity must call this when activity is finished. can be called on any thread
-
+- (void)activityDidFinish:(BOOL)completed;   // activity must call this when activity is finished
 @end
+
+NS_ASSUME_NONNULL_END

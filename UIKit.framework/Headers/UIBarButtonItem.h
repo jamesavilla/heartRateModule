@@ -2,7 +2,7 @@
 //  UIBarButtonItem.h
 //  UIKit
 //
-//  Copyright (c) 2008-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2008-2014 Apple Inc. All rights reserved.
 //
 
 #import <CoreGraphics/CoreGraphics.h>
@@ -13,9 +13,11 @@
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIBarCommon.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, UIBarButtonItemStyle) {
-    UIBarButtonItemStylePlain,    // shows glow when pressed
-    UIBarButtonItemStyleBordered,
+    UIBarButtonItemStylePlain,
+    UIBarButtonItemStyleBordered NS_ENUM_DEPRECATED_IOS(2_0, 8_0, "Use UIBarButtonItemStylePlain when minimum deployment target is iOS7 or later"),
     UIBarButtonItemStyleDone,
 };
 
@@ -41,56 +43,29 @@ typedef NS_ENUM(NSInteger, UIBarButtonSystemItem) {
     UIBarButtonSystemItemPause,
     UIBarButtonSystemItemRewind,
     UIBarButtonSystemItemFastForward,
-#if __IPHONE_3_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED
-    UIBarButtonSystemItemUndo,
-    UIBarButtonSystemItemRedo,
-#endif
-#if __IPHONE_4_0 <= __IPHONE_OS_VERSION_MAX_ALLOWED
-    UIBarButtonSystemItemPageCurl,
-#endif
+    UIBarButtonSystemItemUndo NS_ENUM_AVAILABLE_IOS(3_0),
+    UIBarButtonSystemItemRedo NS_ENUM_AVAILABLE_IOS(3_0),
+    UIBarButtonSystemItemPageCurl NS_ENUM_AVAILABLE_IOS(4_0),
 };
 
 @class UIImage, UIView;
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIBarButtonItem : UIBarItem <NSCoding> {
-  @private
-    NSString     *_title;
-    NSSet        *_possibleTitles;
-    SEL           _action;
-    id            _target;
-    UIImage      *_image;
-    UIImage      *_landscapeImagePhone;
-    UIEdgeInsets  _imageInsets;
-    UIEdgeInsets  _landscapeImagePhoneInsets;
-    CGFloat       _width;   
-    UIView       *_view;
-    NSInteger     _tag;
-    id            _appearanceStorage;
-    struct {
-        unsigned int enabled:1;
-        unsigned int style:3;
-        unsigned int isSystemItem:1;
-        unsigned int systemItem:7;
-        unsigned int viewIsCustom:1;
-        unsigned int isMinibarView:1;
-        unsigned int disableAutosizing:1;
-        unsigned int selected:1;
-        unsigned int imageHasEffects:1;
-    } _barButtonItemFlags;
-}
+NS_CLASS_AVAILABLE_IOS(2_0) @interface UIBarButtonItem : UIBarItem <NSCoding>
 
-- (id)initWithImage:(UIImage *)image style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action;
-- (id)initWithImage:(UIImage *)image landscapeImagePhone:(UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action NS_AVAILABLE_IOS(5_0); // landscapeImagePhone will be used for the bar button image in landscape bars in UIUserInterfaceIdiomPhone only
-- (id)initWithTitle:(NSString *)title style:(UIBarButtonItemStyle)style target:(id)target action:(SEL)action;
-- (id)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem target:(id)target action:(SEL)action;
-- (id)initWithCustomView:(UIView *)customView;
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithImage:(nullable UIImage *)image style:(UIBarButtonItemStyle)style target:(nullable id)target action:(nullable SEL)action;
+- (instancetype)initWithImage:(nullable UIImage *)image landscapeImagePhone:(nullable UIImage *)landscapeImagePhone style:(UIBarButtonItemStyle)style target:(nullable id)target action:(nullable SEL)action NS_AVAILABLE_IOS(5_0); // landscapeImagePhone will be used for the bar button image when the bar has Compact or Condensed bar metrics.
+- (instancetype)initWithTitle:(nullable NSString *)title style:(UIBarButtonItemStyle)style target:(nullable id)target action:(nullable SEL)action;
+- (instancetype)initWithBarButtonSystemItem:(UIBarButtonSystemItem)systemItem target:(nullable id)target action:(nullable SEL)action;
+- (instancetype)initWithCustomView:(UIView *)customView;
 
 @property(nonatomic)         UIBarButtonItemStyle style;            // default is UIBarButtonItemStylePlain
 @property(nonatomic)         CGFloat              width;            // default is 0.0
-@property(nonatomic,copy)    NSSet               *possibleTitles;   // default is nil
-@property(nonatomic,retain)  UIView              *customView;       // default is nil
-@property(nonatomic)         SEL                  action;           // default is NULL
-@property(nonatomic,assign)  id                   target;           // default is nil
+@property(nullable, nonatomic,copy)    NSSet<NSString *>   *possibleTitles;   // default is nil
+@property(nullable, nonatomic,strong)  __kindof UIView     *customView;       // default is nil
+@property(nullable, nonatomic)         SEL                  action;           // default is NULL
+@property(nullable, nonatomic,weak)    id                   target;           // default is nil
 
 //
 // Appearance modifiers
@@ -105,15 +80,15 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIBarButtonItem : UIBarItem <NSCoding> {
  
  This sets the background image for buttons of any style.
  */
-- (void)setBackgroundImage:(UIImage *)backgroundImage forState:(UIControlState)state barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
-- (UIImage *)backgroundImageForState:(UIControlState)state barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+- (void)setBackgroundImage:(nullable UIImage *)backgroundImage forState:(UIControlState)state barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+- (nullable UIImage *)backgroundImageForState:(UIControlState)state barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
 /* This sets the background image for buttons with a specific style. When calling this on a UIBarButtonItem instance, the style argument must match the button's style; when calling on the UIAppearance proxy, any style may be passed.
  */
-- (void)setBackgroundImage:(UIImage *)backgroundImage forState:(UIControlState)state style:(UIBarButtonItemStyle)style barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
-- (UIImage *)backgroundImageForState:(UIControlState)state style:(UIBarButtonItemStyle)style barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
+- (void)setBackgroundImage:(nullable UIImage *)backgroundImage forState:(UIControlState)state style:(UIBarButtonItemStyle)style barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
+- (nullable UIImage *)backgroundImageForState:(UIControlState)state style:(UIBarButtonItemStyle)style barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(6_0) UI_APPEARANCE_SELECTOR;
 
-@property(nonatomic,retain) UIColor *tintColor NS_AVAILABLE_IOS(5_0);
+@property(nullable, nonatomic,strong) UIColor *tintColor NS_AVAILABLE_IOS(5_0);
 
 /* For adjusting the vertical centering of bordered bar buttons within the bar 
  */
@@ -130,16 +105,18 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIBarButtonItem : UIBarItem <NSCoding> {
 /*
  backgroundImage must be a resizable image for good results.
  */
-- (void)setBackButtonBackgroundImage:(UIImage *)backgroundImage forState:(UIControlState)state barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
-- (UIImage *)backButtonBackgroundImageForState:(UIControlState)state barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+- (void)setBackButtonBackgroundImage:(nullable UIImage *)backgroundImage forState:(UIControlState)state barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
+- (nullable UIImage *)backButtonBackgroundImageForState:(UIControlState)state barMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
 - (void)setBackButtonTitlePositionAdjustment:(UIOffset)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 - (UIOffset)backButtonTitlePositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
 /* For adjusting the vertical centering of bordered bar buttons within the bar 
  */
-- (void)setBackButtonBackgroundVerticalPositionAdjustment:(CGFloat)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR; 
+- (void)setBackButtonBackgroundVerticalPositionAdjustment:(CGFloat)adjustment forBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 - (CGFloat)backButtonBackgroundVerticalPositionAdjustmentForBarMetrics:(UIBarMetrics)barMetrics NS_AVAILABLE_IOS(5_0) UI_APPEARANCE_SELECTOR;
 
 @end
+
+NS_ASSUME_NONNULL_END
 

@@ -2,35 +2,41 @@
 //  UIColor.h
 //  UIKit
 //
-//  Copyright (c) 2005-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2005-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
+#if __has_include(<CoreImage/CoreImage.h>)
 #import <CoreImage/CoreImage.h>
+#endif
 #import <UIKit/UIKitDefines.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class UIImage;
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIColor : NSObject <NSSecureCoding, NSCopying> {
-  @private
-}
+NS_CLASS_AVAILABLE_IOS(2_0) @interface UIColor : NSObject <NSSecureCoding, NSCopying>
 
-// Convenience methods for creating autoreleased colors
+// Convenience methods for creating colors
 + (UIColor *)colorWithWhite:(CGFloat)white alpha:(CGFloat)alpha;
 + (UIColor *)colorWithHue:(CGFloat)hue saturation:(CGFloat)saturation brightness:(CGFloat)brightness alpha:(CGFloat)alpha;
 + (UIColor *)colorWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 + (UIColor *)colorWithCGColor:(CGColorRef)cgColor;
 + (UIColor *)colorWithPatternImage:(UIImage *)image;
+#if __has_include(<CoreImage/CoreImage.h>)
 + (UIColor *)colorWithCIColor:(CIColor *)ciColor NS_AVAILABLE_IOS(5_0);
+#endif
 
-// Initializers for creating non-autoreleased colors
+// Initializers for creating colors
 - (UIColor *)initWithWhite:(CGFloat)white alpha:(CGFloat)alpha;
 - (UIColor *)initWithHue:(CGFloat)hue saturation:(CGFloat)saturation brightness:(CGFloat)brightness alpha:(CGFloat)alpha;
 - (UIColor *)initWithRed:(CGFloat)red green:(CGFloat)green blue:(CGFloat)blue alpha:(CGFloat)alpha;
 - (UIColor *)initWithCGColor:(CGColorRef)cgColor;
 - (UIColor *)initWithPatternImage:(UIImage*)image;
+#if __has_include(<CoreImage/CoreImage.h>)
 - (UIColor *)initWithCIColor:(CIColor *)ciColor NS_AVAILABLE_IOS(5_0);
+#endif
 
 // Some convenience methods to create colors.  These colors will be as calibrated as possible.
 // These colors are cached.
@@ -59,22 +65,28 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIColor : NSObject <NSSecureCoding, NSCop
 
 // Convenience methods for getting components.
 // If the receiver is of a compatible color space, any non-NULL parameters are populated and 'YES' is returned. Otherwise, the parameters are left unchanged and 'NO' is returned.
-- (BOOL)getWhite:(CGFloat *)white alpha:(CGFloat *)alpha NS_AVAILABLE_IOS(5_0);
-- (BOOL)getHue:(CGFloat *)hue saturation:(CGFloat *)saturation brightness:(CGFloat *)brightness alpha:(CGFloat *)alpha NS_AVAILABLE_IOS(5_0);
-- (BOOL)getRed:(CGFloat *)red green:(CGFloat *)green blue:(CGFloat *)blue alpha:(CGFloat *)alpha NS_AVAILABLE_IOS(5_0);
+- (BOOL)getWhite:(nullable CGFloat *)white alpha:(nullable CGFloat *)alpha NS_AVAILABLE_IOS(5_0);
+- (BOOL)getHue:(nullable CGFloat *)hue saturation:(nullable CGFloat *)saturation brightness:(nullable CGFloat *)brightness alpha:(nullable CGFloat *)alpha NS_AVAILABLE_IOS(5_0);
+- (BOOL)getRed:(nullable CGFloat *)red green:(nullable CGFloat *)green blue:(nullable CGFloat *)blue alpha:(nullable CGFloat *)alpha NS_AVAILABLE_IOS(5_0);
 
 // Returns a color in the same color space as the receiver with the specified alpha component.
 - (UIColor *)colorWithAlphaComponent:(CGFloat)alpha;
 
 // Access the underlying CGColor or CIColor.
 @property(nonatomic,readonly) CGColorRef CGColor;
-- (CGColorRef)CGColor NS_RETURNS_INNER_POINTER;
+- (CGColorRef)CGColor NS_RETURNS_INNER_POINTER CF_RETURNS_NOT_RETAINED;
+#if __has_include(<CoreImage/CoreImage.h>)
 @property(nonatomic,readonly) CIColor   *CIColor NS_AVAILABLE_IOS(5_0);
+#endif
 
 @end
 
+#if __has_include(<CoreImage/CoreImage.h>)
 @interface CIColor(UIKitAdditions)
 
-- (id)initWithColor:(UIColor *)color NS_AVAILABLE_IOS(5_0);
+- (instancetype)initWithColor:(UIColor *)color NS_AVAILABLE_IOS(5_0);
 
 @end
+#endif
+
+NS_ASSUME_NONNULL_END

@@ -2,12 +2,16 @@
 //  NSText.h
 //  UIKit
 //
-//  Copyright (c) 2011-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2011-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#if __has_include(<CoreText/CTParagraphStyle.h>)
 #import <CoreText/CTParagraphStyle.h>
+#endif
 #import <UIKit/UIKitDefines.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /* Values for NSTextAlignment */
 typedef NS_ENUM(NSInteger, NSTextAlignment) {
@@ -23,8 +27,10 @@ typedef NS_ENUM(NSInteger, NSTextAlignment) {
     NSTextAlignmentNatural   = 4,    // Indicates the default alignment for script
 } NS_ENUM_AVAILABLE_IOS(6_0);
 
+#if __has_include(<CoreText/CTParagraphStyle.h>)
 UIKIT_EXTERN CTTextAlignment NSTextAlignmentToCTTextAlignment(NSTextAlignment nsTextAlignment) NS_AVAILABLE_IOS(6_0);
 UIKIT_EXTERN NSTextAlignment NSTextAlignmentFromCTTextAlignment(CTTextAlignment ctTextAlignment) NS_AVAILABLE_IOS(6_0);
+#endif
 
 /* Values for NSWritingDirection */
 typedef NS_ENUM(NSInteger, NSWritingDirection) {
@@ -32,3 +38,5 @@ typedef NS_ENUM(NSInteger, NSWritingDirection) {
     NSWritingDirectionLeftToRight   =  0,    // Left to right writing direction
     NSWritingDirectionRightToLeft   =  1     // Right to left writing direction
 } NS_ENUM_AVAILABLE_IOS(6_0);
+
+NS_ASSUME_NONNULL_END

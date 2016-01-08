@@ -1,17 +1,22 @@
 //
 //  UIMotionEffect.h
-//  Copyright (c) 2013 Apple Inc. All rights reserved.
+//  Copyright (c) 2013-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIGeometry.h>
 
-/*! _UIMotionEffect is an abstract superclass which declaratively represents a rendering
+/*! UIMotionEffect is an abstract superclass which declaratively represents a rendering
     effect that depends on the motion of the device. Given some device pose, subclassers
     provide relative values which are to be applied to the keypaths of the target's view.
  
     Subclasses must implement conformance for NSCopying and NSCoding. */
+NS_ASSUME_NONNULL_BEGIN
+
 NS_CLASS_AVAILABLE_IOS(7_0) @interface UIMotionEffect : NSObject <NSCopying, NSCoding>
+
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
 /*! Abstract method. Given the `viewerOffset`, this method should compute a set of key paths
     and relative values pairs which will represent the effect of the device's motion on
@@ -29,7 +34,7 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface UIMotionEffect : NSObject <NSCopying, NSC
     Example return value: `@{ @"center": [NSValue 
  valueFromCGPoint:CGPointMake(3.4, 1.2)],
                               @"layer.shadowOffset.x": @(-1.1) }` */
-- (NSDictionary *)keyPathsAndRelativeValuesForViewerOffset:(UIOffset)viewerOffset;
+- (nullable NSDictionary<NSString *, id> *)keyPathsAndRelativeValuesForViewerOffset:(UIOffset)viewerOffset;
 
 @end
 
@@ -54,12 +59,13 @@ typedef NS_ENUM(NSInteger, UIInterpolatingMotionEffectType) {
     `keyPath` should be expressed relative to the effect's target view. */
 NS_CLASS_AVAILABLE_IOS(7_0) @interface UIInterpolatingMotionEffect : UIMotionEffect
 
-- (instancetype)initWithKeyPath:(NSString *)keyPath type:(UIInterpolatingMotionEffectType)type; // designated initializer
+- (instancetype)initWithKeyPath:(NSString *)keyPath type:(UIInterpolatingMotionEffectType)type NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 @property (readonly, nonatomic) NSString *keyPath;
 @property (readonly, nonatomic) UIInterpolatingMotionEffectType type;
 
-@property (retain, nonatomic) id minimumRelativeValue;
-@property (retain, nonatomic) id maximumRelativeValue;
+@property (nullable, strong, nonatomic) id minimumRelativeValue;
+@property (nullable, strong, nonatomic) id maximumRelativeValue;
 
 @end
 
@@ -68,5 +74,7 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface UIInterpolatingMotionEffect : UIMotionEff
 /*! Behaves like CAAnimationGroup. Merges key/value pairs of constituent
     using Core Animation's implementations of addition for all the standard types. */
 NS_CLASS_AVAILABLE_IOS(7_0) @interface UIMotionEffectGroup : UIMotionEffect
-@property (copy, nonatomic) NSArray *motionEffects;
+@property (nullable, copy, nonatomic) NSArray<__kindof UIMotionEffect *> *motionEffects;
 @end
+
+NS_ASSUME_NONNULL_END

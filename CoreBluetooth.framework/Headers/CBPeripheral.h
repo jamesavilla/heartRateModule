@@ -7,9 +7,16 @@
  *	@copyright 2011 Apple, Inc. All rights reserved.
  */
 
+#ifndef _CORE_BLUETOOTH_H_
+#warning Please do not import this header file directly. Use <CoreBluetooth/CoreBluetooth.h> instead.
+#endif
+
 #import <CoreBluetooth/CBDefines.h>
+#import <CoreBluetooth/CBPeer.h>
 
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  *  @enum CBPeripheralState
@@ -21,6 +28,7 @@ typedef NS_ENUM(NSInteger, CBPeripheralState) {
 	CBPeripheralStateDisconnected = 0,
 	CBPeripheralStateConnecting,
 	CBPeripheralStateConnected,
+	CBPeripheralStateDisconnecting NS_AVAILABLE(NA, 9_0),
 } NS_AVAILABLE(NA, 7_0);
 
 /*!
@@ -43,55 +51,30 @@ typedef NS_ENUM(NSInteger, CBCharacteristicWriteType) {
  *  @discussion Represents a peripheral.
  */
 NS_CLASS_AVAILABLE(10_7, 5_0)
-CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
+CB_EXTERN_CLASS @interface CBPeripheral : CBPeer
 
 /*!
  *  @property delegate
  *
  *  @discussion The delegate object that will receive peripheral events.
  */
-@property(weak, nonatomic) id<CBPeripheralDelegate> delegate;
-
-/*!
- *  @property UUID
- *
- *  @discussion Once a peripheral has been connected at least once by the system, it is assigned a UUID. This UUID can be stored and later provided to a
- *              <code>CBCentralManager</code> to retrieve the peripheral.
- *
- *	@deprecated Use the {@link identifier} property instead.
- */
-@property(readonly, nonatomic) CFUUIDRef UUID NS_DEPRECATED(NA, NA, 5_0, 7_0);
-
-/*!
- *  @property identifier
- *
- *  @discussion The unique identifier associated with the peripheral. This identifier can be stored and later provided to a <code>CBCentralManager</code>
- *				to retrieve the peripheral.
- */
-@property(readonly, nonatomic) NSUUID *identifier NS_AVAILABLE(NA, 7_0);
+@property(assign, nonatomic, nullable) id<CBPeripheralDelegate> delegate;
 
 /*!
  *  @property name
  *
  *  @discussion The name of the peripheral.
  */
-@property(retain, readonly) NSString *name;
+@property(retain, readonly, nullable) NSString *name;
 
 /*!
  *  @property RSSI
  *
  *  @discussion The most recently read RSSI, in decibels.
- */
-@property(retain, readonly) NSNumber *RSSI;
-
-/*!
- *  @property isConnected
  *
- *  @discussion Whether or not the peripheral is currently connected.
- *              
- *	@deprecated Use the {@link state} property instead.
+ *  @deprecated Use {@link peripheral:didReadRSSI:error:} instead.
  */
-@property(readonly) BOOL isConnected NS_DEPRECATED(NA, NA, 5_0, 7_0);
+@property(retain, readonly, nullable) NSNumber *RSSI NS_DEPRECATED(NA, NA, 5_0, 8_0);
 
 /*!
  *  @property state
@@ -105,14 +88,14 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *
  *  @discussion A list of <code>CBService</code> objects that have been discovered on the peripheral.
  */
-@property(retain, readonly) NSArray *services;
+@property(retain, readonly, nullable) NSArray<CBService *> *services;
 
 /*!
  *  @method readRSSI
  *
- *	@discussion While connected, retrieves the current RSSI of the link.
+ *  @discussion While connected, retrieves the current RSSI of the link.
  *
- *	@see		peripheralDidUpdateRSSI:error:
+ *  @see        peripheral:didReadRSSI:error:
  */
 - (void)readRSSI;
 
@@ -126,7 +109,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *
  *  @see				peripheral:didDiscoverServices:
  */
-- (void)discoverServices:(NSArray *)serviceUUIDs;
+- (void)discoverServices:(nullable NSArray<CBUUID *> *)serviceUUIDs;
 
 /*!
  *  @method discoverIncludedServices:forService:
@@ -139,7 +122,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *
  *  @see						peripheral:didDiscoverIncludedServicesForService:error:
  */
-- (void)discoverIncludedServices:(NSArray *)includedServiceUUIDs forService:(CBService *)service;
+- (void)discoverIncludedServices:(nullable NSArray<CBUUID *> *)includedServiceUUIDs forService:(CBService *)service;
 
 /*!
  *  @method discoverCharacteristics:forService:
@@ -152,7 +135,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *
  *  @see						peripheral:didDiscoverCharacteristicsForService:error:
  */
-- (void)discoverCharacteristics:(NSArray *)characteristicUUIDs forService:(CBService *)service;
+- (void)discoverCharacteristics:(nullable NSArray<CBUUID *> *)characteristicUUIDs forService:(CBService *)service;
 
 /*!
  *  @method readValueForCharacteristic:
@@ -166,14 +149,26 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
 - (void)readValueForCharacteristic:(CBCharacteristic *)characteristic;
 
 /*!
+ *  @method		maximumWriteValueLengthForType:
+ *
+ *  @discussion	The maximum amount of data, in bytes, that can be sent to a characteristic in a single write type.
+ *
+ *  @see		writeValue:forCharacteristic:type:
+ */
+- (NSUInteger)maximumWriteValueLengthForType:(CBCharacteristicWriteType)type NS_AVAILABLE(NA, 9_0);
+
+/*!
  *  @method writeValue:forCharacteristic:type:
  *
  *  @param data				The value to write.
  *  @param characteristic	The characteristic whose characteristic value will be written.
  *  @param type				The type of write to be executed.
  *
- *  @discussion				Writes <i>value</i> to <i>characteristic</i>'s characteristic value. If the <code>CBCharacteristicWriteWithResponse</code>
- *							type is specified, {@link peripheral:didWriteValueForCharacteristic:error:} is called with the result of the write request.
+ *  @discussion				Writes <i>value</i> to <i>characteristic</i>'s characteristic value.
+ *							If the <code>CBCharacteristicWriteWithResponse</code> type is specified, {@link peripheral:didWriteValueForCharacteristic:error:}
+ *							is called with the result of the write request.
+ *							If the <code>CBCharacteristicWriteWithoutResponse</code> type is specified, the delivery of the data is best-effort and not
+ *							guaranteed.
  *
  *  @see					peripheral:didWriteValueForCharacteristic:error:
  *	@see					CBCharacteristicWriteType
@@ -256,18 +251,6 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
 - (void)peripheralDidUpdateName:(CBPeripheral *)peripheral NS_AVAILABLE(NA, 6_0);
 
 /*!
- *  @method peripheralDidInvalidateServices:
- *
- *  @param peripheral	The peripheral providing this update.
- *
- *  @discussion			This method is invoked when the @link services @/link of <i>peripheral</i> have been changed. At this point, 
- *						all existing <code>CBService</code> objects are invalidated. Services can be re-discovered via @link discoverServices: @/link.
- *
- *	@deprecated			Use {@link peripheral:didModifyServices:} instead.
- */
-- (void)peripheralDidInvalidateServices:(CBPeripheral *)peripheral NS_DEPRECATED(NA, NA, 6_0, 7_0);
-
-/*!
  *  @method peripheral:didModifyServices:
  *
  *  @param peripheral			The peripheral providing this update.
@@ -277,7 +260,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *						At this point, the designated <code>CBService</code> objects have been invalidated.
  *						Services can be re-discovered via @link discoverServices: @/link.
  */
-- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray *)invalidatedServices NS_AVAILABLE(NA, 7_0);
+- (void)peripheral:(CBPeripheral *)peripheral didModifyServices:(NSArray<CBService *> *)invalidatedServices NS_AVAILABLE(NA, 7_0);
 
 /*!
  *  @method peripheralDidUpdateRSSI:error:
@@ -286,8 +269,21 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *	@param error		If an error occurred, the cause of the failure.
  *
  *  @discussion			This method returns the result of a @link readRSSI: @/link call.
+ *
+ *  @deprecated			Use {@link peripheral:didReadRSSI:error:} instead.
  */
-- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(NSError *)error;
+- (void)peripheralDidUpdateRSSI:(CBPeripheral *)peripheral error:(nullable NSError *)error NS_DEPRECATED(NA, NA, 5_0, 8_0);
+
+/*!
+ *  @method peripheral:didReadRSSI:error:
+ *
+ *  @param peripheral	The peripheral providing this update.
+ *  @param RSSI			The current RSSI of the link.
+ *  @param error		If an error occurred, the cause of the failure.
+ *
+ *  @discussion			This method returns the result of a @link readRSSI: @/link call.
+ */
+- (void)peripheral:(CBPeripheral *)peripheral didReadRSSI:(NSNumber *)RSSI error:(nullable NSError *)error NS_AVAILABLE(NA, 8_0);
 
 /*!
  *  @method peripheral:didDiscoverServices:
@@ -299,7 +295,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *						<i>peripheral</i>'s @link services @/link property.
  *
  */
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(NSError *)error;
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverServices:(nullable NSError *)error;
 
 /*!
  *  @method peripheral:didDiscoverIncludedServicesForService:error:
@@ -311,7 +307,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *  @discussion			This method returns the result of a @link discoverIncludedServices:forService: @/link call. If the included service(s) were read successfully, 
  *						they can be retrieved via <i>service</i>'s <code>includedServices</code> property.
  */
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(NSError *)error;
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverIncludedServicesForService:(CBService *)service error:(nullable NSError *)error;
 
 /*!
  *  @method peripheral:didDiscoverCharacteristicsForService:error:
@@ -323,7 +319,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *  @discussion			This method returns the result of a @link discoverCharacteristics:forService: @/link call. If the characteristic(s) were read successfully, 
  *						they can be retrieved via <i>service</i>'s <code>characteristics</code> property.
  */
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error;
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(nullable NSError *)error;
 
 /*!
  *  @method peripheral:didUpdateValueForCharacteristic:error:
@@ -334,7 +330,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *
  *  @discussion				This method is invoked after a @link readValueForCharacteristic: @/link call, or upon receipt of a notification/indication.
  */
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error;
 
 /*!
  *  @method peripheral:didWriteValueForCharacteristic:error:
@@ -345,7 +341,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *
  *  @discussion				This method returns the result of a {@link writeValue:forCharacteristic:type:} call, when the <code>CBCharacteristicWriteWithResponse</code> type is used.
  */
- - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
+ - (void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error;
 
 /*!
  *  @method peripheral:didUpdateNotificationStateForCharacteristic:error:
@@ -356,7 +352,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *
  *  @discussion				This method returns the result of a @link setNotifyValue:forCharacteristic: @/link call. 
  */
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateNotificationStateForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error;
 
 /*!
  *  @method peripheral:didDiscoverDescriptorsForCharacteristic:error:
@@ -368,7 +364,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *  @discussion				This method returns the result of a @link discoverDescriptorsForCharacteristic: @/link call. If the descriptors were read successfully, 
  *							they can be retrieved via <i>characteristic</i>'s <code>descriptors</code> property.
  */
-- (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error;
+- (void)peripheral:(CBPeripheral *)peripheral didDiscoverDescriptorsForCharacteristic:(CBCharacteristic *)characteristic error:(nullable NSError *)error;
 
 /*!
  *  @method peripheral:didUpdateValueForDescriptor:error:
@@ -379,7 +375,7 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *
  *  @discussion				This method returns the result of a @link readValueForDescriptor: @/link call.
  */
-- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error;
+- (void)peripheral:(CBPeripheral *)peripheral didUpdateValueForDescriptor:(CBDescriptor *)descriptor error:(nullable NSError *)error;
 
 /*!
  *  @method peripheral:didWriteValueForDescriptor:error:
@@ -390,6 +386,8 @@ CB_EXTERN_CLASS @interface CBPeripheral : NSObject <NSCopying>
  *
  *  @discussion				This method returns the result of a @link writeValue:forDescriptor: @/link call.
  */
-- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(NSError *)error;
+- (void)peripheral:(CBPeripheral *)peripheral didWriteValueForDescriptor:(CBDescriptor *)descriptor error:(nullable NSError *)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

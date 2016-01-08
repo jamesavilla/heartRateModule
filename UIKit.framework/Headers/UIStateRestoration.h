@@ -2,16 +2,19 @@
  *  UIStateRestoration.h
  *  UIKit
  *
- *  Copyright 2012-2011, Apple Inc. All rights reserved.
+ *  Copyright 2012-2011 Apple Inc. All rights reserved.
  *
  */
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKitDefines.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 #pragma mark -- State Restoration Coder Keys --
 
 // UIStoryBoard that originally created the ViewController that saved state, nil if no UIStoryboard
+
 UIKIT_EXTERN NSString *const UIStateRestorationViewControllerStoryboardKey NS_AVAILABLE_IOS(6_0);
 
 // NSString with value of info.plist's Bundle Version (app version) when state was last saved for the app
@@ -33,12 +36,12 @@ UIKIT_EXTERN NSString *const UIApplicationStateRestorationSystemVersionKey NS_AV
 
 // A class must implement this protocol if it is specified as the restoration class of a UIViewController.
 @protocol UIViewControllerRestoration
-+ (UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder;
++ (nullable UIViewController *) viewControllerWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder;
 @end
 
 @protocol UIDataSourceModelAssociation
-- (NSString *) modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view;
-- (NSIndexPath *) indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view;
+- (nullable NSString *) modelIdentifierForElementAtIndexPath:(NSIndexPath *)idx inView:(UIView *)view;
+- (nullable NSIndexPath *) indexPathForElementWithModelIdentifier:(NSString *)identifier inView:(UIView *)view;
 @end
 
 #pragma mark -- State Restoration object protocols and methods --
@@ -53,11 +56,11 @@ UIKIT_EXTERN NSString *const UIApplicationStateRestorationSystemVersionKey NS_AV
 // The parent property is used to scope the restoration identifier path for an object, to
 // disambiguate it from other objects that might be using the same identifier. The parent
 // must be a restorable object or a view controller, else it will be ignored.
-@property (nonatomic, readonly) id<UIStateRestoring> restorationParent;
+@property (nonatomic, readonly, nullable) id<UIStateRestoring> restorationParent;
 
 // The restoration class specifies a class which is consulted during restoration to find/create
 // the object, rather than trying to look it up implicitly
-@property (nonatomic, readonly) Class<UIObjectRestoration> objectRestorationClass;
+@property (nonatomic, readonly, nullable) Class<UIObjectRestoration> objectRestorationClass;
 
 // Methods to save and restore state for the object. If these aren't implemented, the object
 // can still be referenced by other objects in state restoration archives, but it won't
@@ -75,7 +78,9 @@ UIKIT_EXTERN NSString *const UIApplicationStateRestorationSystemVersionKey NS_AV
 // Protocol for classes that act as a factory to find a restorable object during state restoration
 // A class must implement this protocol if it is specified as the restoration class of a UIRestorableObject.
 @protocol UIObjectRestoration
-+ (id<UIStateRestoring>) objectWithRestorationIdentifierPath:(NSArray *)identifierComponents coder:(NSCoder *)coder;
++ (nullable id<UIStateRestoring>) objectWithRestorationIdentifierPath:(NSArray<NSString *> *)identifierComponents coder:(NSCoder *)coder;
 @end
+
+NS_ASSUME_NONNULL_END
 
 

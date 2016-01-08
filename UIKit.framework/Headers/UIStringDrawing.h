@@ -2,7 +2,7 @@
 //  UIStringDrawing.h
 //  UIKit
 //
-//  Copyright (c) 2005-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2005-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -26,7 +26,7 @@ UIKIT_EXTERN NSString *const UITextAttributeTextShadowColor NS_DEPRECATED_IOS(5_
 // Key to the offset used for the text shadow in the text attributes dictionary. An NSValue instance wrapping a UIOffset struct is expected.
 UIKIT_EXTERN NSString *const UITextAttributeTextShadowOffset NS_DEPRECATED_IOS(5_0, 7_0, "Use NSShadowAttributeName with an NSShadow instance as the value");
 
-// Deprecated: use NSLineBreakMode instead (we will be adding deprecation tags soon!)
+// Deprecated: use NSLineBreakMode instead
 typedef NS_ENUM(NSInteger, UILineBreakMode) {
     UILineBreakModeWordWrap = 0,            // Wrap at word boundaries
     UILineBreakModeCharacterWrap,           // Wrap at character boundaries

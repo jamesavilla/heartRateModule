@@ -26,16 +26,44 @@
 		24DD6CFA1134B3F500162E58 /* ComIcsciencesHeartRateModuleModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* ComIcsciencesHeartRateModuleModule.m */; };
 		24DE9E1111C5FE74003F90F6 /* ComIcsciencesHeartRateModuleModuleAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DE9E0F11C5FE74003F90F6 /* ComIcsciencesHeartRateModuleModuleAssets.h */; };
 		24DE9E1211C5FE74003F90F6 /* ComIcsciencesHeartRateModuleModuleAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE9E1011C5FE74003F90F6 /* ComIcsciencesHeartRateModuleModuleAssets.m */; };
+		382CDDBA1BB3267E006418CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382CDDB41BB3267E006418CE /* QuartzCore.framework */; settings = {ASSET_TAGS = (); }; };
+		382CDDBC1BB3267E006418CE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382CDDB61BB3267E006418CE /* CoreGraphics.framework */; settings = {ASSET_TAGS = (); }; };
+		382CDDBD1BB3267E006418CE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382CDDB71BB3267E006418CE /* UIKit.framework */; settings = {ASSET_TAGS = (); }; };
+		382CDDFD1BB36E18006418CE /* LifesenseBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382CDDFC1BB36E18006418CE /* LifesenseBluetooth.framework */; settings = {ASSET_TAGS = (); }; };
+		382CDE031BB3711B006418CE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 382CDE021BB3711B006418CE /* CoreBluetooth.framework */; settings = {ASSET_TAGS = (); }; };
+		3835EBE41BBAE050005DFD2E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3835EBE31BBAE050005DFD2E /* Foundation.framework */; settings = {ASSET_TAGS = (); }; };
+		384DADFF1BB9D14E001C85AE /* DataFormatConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DADFD1BB9D14E001C85AE /* DataFormatConverter.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE001BB9D14E001C85AE /* DataFormatConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DADFE1BB9D14E001C85AE /* DataFormatConverter.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE1B1BB9D164001C85AE /* ScanFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE021BB9D164001C85AE /* ScanFilter.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE1C1BB9D164001C85AE /* ScanFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE031BB9D164001C85AE /* ScanFilter.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE1D1BB9D164001C85AE /* DeviceUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE041BB9D164001C85AE /* DeviceUser.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE1E1BB9D164001C85AE /* DeviceUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE051BB9D164001C85AE /* DeviceUser.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE1F1BB9D164001C85AE /* DeviceUserProfiles.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE061BB9D164001C85AE /* DeviceUserProfiles.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE201BB9D164001C85AE /* DeviceUserProfiles.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE071BB9D164001C85AE /* DeviceUserProfiles.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE211BB9D164001C85AE /* DeviceAlarmClock.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE081BB9D164001C85AE /* DeviceAlarmClock.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE221BB9D164001C85AE /* DeviceAlarmClock.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE091BB9D164001C85AE /* DeviceAlarmClock.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE231BB9D164001C85AE /* BleDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE0A1BB9D164001C85AE /* BleDevice.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE241BB9D164001C85AE /* BleDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE0B1BB9D164001C85AE /* BleDevice.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE251BB9D164001C85AE /* LSDatabaseAvailability.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE0C1BB9D164001C85AE /* LSDatabaseAvailability.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE261BB9D164001C85AE /* LSDatabaseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE0D1BB9D164001C85AE /* LSDatabaseManager.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE271BB9D164001C85AE /* LSDatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE0E1BB9D164001C85AE /* LSDatabaseManager.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE281BB9D164001C85AE /* DatabaseManagerDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE0F1BB9D164001C85AE /* DatabaseManagerDelegate.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE291BB9D164001C85AE /* BleDevice+Handler.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE101BB9D164001C85AE /* BleDevice+Handler.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE2A1BB9D164001C85AE /* BleDevice+Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE111BB9D164001C85AE /* BleDevice+Handler.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE2B1BB9D164001C85AE /* DeviceUser+Handler.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE121BB9D164001C85AE /* DeviceUser+Handler.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE2C1BB9D164001C85AE /* DeviceUser+Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE131BB9D164001C85AE /* DeviceUser+Handler.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE2D1BB9D164001C85AE /* DeviceUserProfiles+Handler.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE141BB9D164001C85AE /* DeviceUserProfiles+Handler.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE2E1BB9D164001C85AE /* DeviceUserProfiles+Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE151BB9D164001C85AE /* DeviceUserProfiles+Handler.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE2F1BB9D164001C85AE /* DeviceAlarmClock+Handler.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE161BB9D164001C85AE /* DeviceAlarmClock+Handler.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE301BB9D164001C85AE /* DeviceAlarmClock+Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE171BB9D164001C85AE /* DeviceAlarmClock+Handler.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE311BB9D164001C85AE /* ScanFilter+Handler.h in Headers */ = {isa = PBXBuildFile; fileRef = 384DAE181BB9D164001C85AE /* ScanFilter+Handler.h */; settings = {ASSET_TAGS = (); }; };
+		384DAE321BB9D164001C85AE /* ScanFilter+Handler.m in Sources */ = {isa = PBXBuildFile; fileRef = 384DAE191BB9D164001C85AE /* ScanFilter+Handler.m */; settings = {ASSET_TAGS = (); }; };
+		384DAE341BBAD174001C85AE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 384DAE331BBAD174001C85AE /* CoreData.framework */; settings = {ASSET_TAGS = (); }; };
+		38BBBC911BF13763008FFE49 /* Model.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 38BBBC901BF13763008FFE49 /* Model.xcdatamodel */; settings = {ASSET_TAGS = (); }; };
 		38CD518A19BA15FD0030BD4B /* LifeCycleProxy.h in Headers */ = {isa = PBXBuildFile; fileRef = 38CD518819BA15FD0030BD4B /* LifeCycleProxy.h */; };
 		38CD518B19BA15FD0030BD4B /* LifeCycleProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CD518919BA15FD0030BD4B /* LifeCycleProxy.m */; };
 		38CD519319BA24120030BD4B /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CD519219BA24120030BD4B /* libsqlite3.dylib */; };
-		38CD519819BA24220030BD4B /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CD519419BA24220030BD4B /* CoreBluetooth.framework */; };
-		38CD519919BA24220030BD4B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CD519519BA24220030BD4B /* CoreGraphics.framework */; };
-		38CD519A19BA24220030BD4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CD519619BA24220030BD4B /* UIKit.framework */; };
-		38CD519B19BA24220030BD4B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CD519719BA24220030BD4B /* XCTest.framework */; };
-		38CD51B019BA38290030BD4B /* LSBLE__A2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38CD51AF19BA38290030BD4B /* LSBLE__A2.framework */; };
 		AA747D9F0F9514B9006C5449 /* ComIcsciencesHeartRateModule_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* ComIcsciencesHeartRateModule_Prefix.pch */; };
-		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,16 +82,44 @@
 		24DD6D1B1134B66800162E58 /* titanium.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = titanium.xcconfig; sourceTree = "<group>"; };
 		24DE9E0F11C5FE74003F90F6 /* ComIcsciencesHeartRateModuleModuleAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ComIcsciencesHeartRateModuleModuleAssets.h; path = Classes/ComIcsciencesHeartRateModuleModuleAssets.h; sourceTree = "<group>"; };
 		24DE9E1011C5FE74003F90F6 /* ComIcsciencesHeartRateModuleModuleAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ComIcsciencesHeartRateModuleModuleAssets.m; path = Classes/ComIcsciencesHeartRateModuleModuleAssets.m; sourceTree = "<group>"; };
+		382CDDB41BB3267E006418CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QuartzCore.framework; sourceTree = "<group>"; };
+		382CDDB61BB3267E006418CE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CoreGraphics.framework; sourceTree = "<group>"; };
+		382CDDB71BB3267E006418CE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UIKit.framework; sourceTree = "<group>"; };
+		382CDDFC1BB36E18006418CE /* LifesenseBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = LifesenseBluetooth.framework; sourceTree = "<group>"; };
+		382CDE021BB3711B006418CE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CoreBluetooth.framework; sourceTree = "<group>"; };
+		3835EBE31BBAE050005DFD2E /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Foundation.framework; sourceTree = "<group>"; };
+		384DADFD1BB9D14E001C85AE /* DataFormatConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataFormatConverter.h; sourceTree = "<group>"; };
+		384DADFE1BB9D14E001C85AE /* DataFormatConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataFormatConverter.m; sourceTree = "<group>"; };
+		384DAE021BB9D164001C85AE /* ScanFilter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanFilter.h; sourceTree = "<group>"; };
+		384DAE031BB9D164001C85AE /* ScanFilter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanFilter.m; sourceTree = "<group>"; };
+		384DAE041BB9D164001C85AE /* DeviceUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUser.h; sourceTree = "<group>"; };
+		384DAE051BB9D164001C85AE /* DeviceUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceUser.m; sourceTree = "<group>"; };
+		384DAE061BB9D164001C85AE /* DeviceUserProfiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceUserProfiles.h; sourceTree = "<group>"; };
+		384DAE071BB9D164001C85AE /* DeviceUserProfiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceUserProfiles.m; sourceTree = "<group>"; };
+		384DAE081BB9D164001C85AE /* DeviceAlarmClock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceAlarmClock.h; sourceTree = "<group>"; };
+		384DAE091BB9D164001C85AE /* DeviceAlarmClock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceAlarmClock.m; sourceTree = "<group>"; };
+		384DAE0A1BB9D164001C85AE /* BleDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BleDevice.h; sourceTree = "<group>"; };
+		384DAE0B1BB9D164001C85AE /* BleDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BleDevice.m; sourceTree = "<group>"; };
+		384DAE0C1BB9D164001C85AE /* LSDatabaseAvailability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSDatabaseAvailability.h; sourceTree = "<group>"; };
+		384DAE0D1BB9D164001C85AE /* LSDatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSDatabaseManager.h; sourceTree = "<group>"; };
+		384DAE0E1BB9D164001C85AE /* LSDatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSDatabaseManager.m; sourceTree = "<group>"; };
+		384DAE0F1BB9D164001C85AE /* DatabaseManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManagerDelegate.h; sourceTree = "<group>"; };
+		384DAE101BB9D164001C85AE /* BleDevice+Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BleDevice+Handler.h"; sourceTree = "<group>"; };
+		384DAE111BB9D164001C85AE /* BleDevice+Handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BleDevice+Handler.m"; sourceTree = "<group>"; };
+		384DAE121BB9D164001C85AE /* DeviceUser+Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeviceUser+Handler.h"; sourceTree = "<group>"; };
+		384DAE131BB9D164001C85AE /* DeviceUser+Handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DeviceUser+Handler.m"; sourceTree = "<group>"; };
+		384DAE141BB9D164001C85AE /* DeviceUserProfiles+Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeviceUserProfiles+Handler.h"; sourceTree = "<group>"; };
+		384DAE151BB9D164001C85AE /* DeviceUserProfiles+Handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DeviceUserProfiles+Handler.m"; sourceTree = "<group>"; };
+		384DAE161BB9D164001C85AE /* DeviceAlarmClock+Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DeviceAlarmClock+Handler.h"; sourceTree = "<group>"; };
+		384DAE171BB9D164001C85AE /* DeviceAlarmClock+Handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "DeviceAlarmClock+Handler.m"; sourceTree = "<group>"; };
+		384DAE181BB9D164001C85AE /* ScanFilter+Handler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ScanFilter+Handler.h"; sourceTree = "<group>"; };
+		384DAE191BB9D164001C85AE /* ScanFilter+Handler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ScanFilter+Handler.m"; sourceTree = "<group>"; };
+		384DAE331BBAD174001C85AE /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CoreData.framework; sourceTree = "<group>"; };
+		38BBBC901BF13763008FFE49 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; name = Model.xcdatamodel; path = assets/Model.xcdatamodel; sourceTree = "<group>"; };
 		38CD518819BA15FD0030BD4B /* LifeCycleProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeCycleProxy.h; sourceTree = "<group>"; };
 		38CD518919BA15FD0030BD4B /* LifeCycleProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeCycleProxy.m; sourceTree = "<group>"; };
 		38CD519219BA24120030BD4B /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; path = libsqlite3.dylib; sourceTree = "<group>"; };
-		38CD519419BA24220030BD4B /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CoreBluetooth.framework; sourceTree = "<group>"; };
-		38CD519519BA24220030BD4B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CoreGraphics.framework; sourceTree = "<group>"; };
-		38CD519619BA24220030BD4B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UIKit.framework; sourceTree = "<group>"; };
-		38CD519719BA24220030BD4B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = XCTest.framework; sourceTree = "<group>"; };
-		38CD51AF19BA38290030BD4B /* LSBLE__A2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LSBLE__A2.framework; path = lib/LSBLE__A2.framework; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* ComIcsciencesHeartRateModule_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComIcsciencesHeartRateModule_Prefix.pch; sourceTree = SOURCE_ROOT; };
-		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libComIcsciencesHeartRateModule.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libComIcsciencesHeartRateModule.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -72,13 +128,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38CD51B019BA38290030BD4B /* LSBLE__A2.framework in Frameworks */,
-				38CD519B19BA24220030BD4B /* XCTest.framework in Frameworks */,
-				38CD519A19BA24220030BD4B /* UIKit.framework in Frameworks */,
+				384DAE341BBAD174001C85AE /* CoreData.framework in Frameworks */,
+				382CDE031BB3711B006418CE /* CoreBluetooth.framework in Frameworks */,
+				382CDDBD1BB3267E006418CE /* UIKit.framework in Frameworks */,
+				382CDDFD1BB36E18006418CE /* LifesenseBluetooth.framework in Frameworks */,
 				38CD519319BA24120030BD4B /* libsqlite3.dylib in Frameworks */,
-				38CD519819BA24220030BD4B /* CoreBluetooth.framework in Frameworks */,
-				38CD519919BA24220030BD4B /* CoreGraphics.framework in Frameworks */,
-				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
+				382CDDBC1BB3267E006418CE /* CoreGraphics.framework in Frameworks */,
+				382CDDBA1BB3267E006418CE /* QuartzCore.framework in Frameworks */,
+				3835EBE41BBAE050005DFD2E /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +153,7 @@
 		0867D691FE84028FC02AAC07 /* heartRateModule */ = {
 			isa = PBXGroup;
 			children = (
+				38BBBC901BF13763008FFE49 /* Model.xcdatamodel */,
 				08FB77AEFE84172EC02AAC07 /* Classes */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
@@ -107,13 +165,14 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				38CD51AF19BA38290030BD4B /* LSBLE__A2.framework */,
-				38CD519419BA24220030BD4B /* CoreBluetooth.framework */,
-				38CD519519BA24220030BD4B /* CoreGraphics.framework */,
-				38CD519619BA24220030BD4B /* UIKit.framework */,
-				38CD519719BA24220030BD4B /* XCTest.framework */,
+				3835EBE31BBAE050005DFD2E /* Foundation.framework */,
+				384DAE331BBAD174001C85AE /* CoreData.framework */,
+				382CDE021BB3711B006418CE /* CoreBluetooth.framework */,
+				382CDDFC1BB36E18006418CE /* LifesenseBluetooth.framework */,
+				382CDDB41BB3267E006418CE /* QuartzCore.framework */,
+				382CDDB61BB3267E006418CE /* CoreGraphics.framework */,
+				382CDDB71BB3267E006418CE /* UIKit.framework */,
 				38CD519219BA24120030BD4B /* libsqlite3.dylib */,
-				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -121,6 +180,32 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				384DAE021BB9D164001C85AE /* ScanFilter.h */,
+				384DAE031BB9D164001C85AE /* ScanFilter.m */,
+				384DAE041BB9D164001C85AE /* DeviceUser.h */,
+				384DAE051BB9D164001C85AE /* DeviceUser.m */,
+				384DAE061BB9D164001C85AE /* DeviceUserProfiles.h */,
+				384DAE071BB9D164001C85AE /* DeviceUserProfiles.m */,
+				384DAE081BB9D164001C85AE /* DeviceAlarmClock.h */,
+				384DAE091BB9D164001C85AE /* DeviceAlarmClock.m */,
+				384DAE0A1BB9D164001C85AE /* BleDevice.h */,
+				384DAE0B1BB9D164001C85AE /* BleDevice.m */,
+				384DAE0C1BB9D164001C85AE /* LSDatabaseAvailability.h */,
+				384DAE0D1BB9D164001C85AE /* LSDatabaseManager.h */,
+				384DAE0E1BB9D164001C85AE /* LSDatabaseManager.m */,
+				384DAE0F1BB9D164001C85AE /* DatabaseManagerDelegate.h */,
+				384DAE101BB9D164001C85AE /* BleDevice+Handler.h */,
+				384DAE111BB9D164001C85AE /* BleDevice+Handler.m */,
+				384DAE121BB9D164001C85AE /* DeviceUser+Handler.h */,
+				384DAE131BB9D164001C85AE /* DeviceUser+Handler.m */,
+				384DAE141BB9D164001C85AE /* DeviceUserProfiles+Handler.h */,
+				384DAE151BB9D164001C85AE /* DeviceUserProfiles+Handler.m */,
+				384DAE161BB9D164001C85AE /* DeviceAlarmClock+Handler.h */,
+				384DAE171BB9D164001C85AE /* DeviceAlarmClock+Handler.m */,
+				384DAE181BB9D164001C85AE /* ScanFilter+Handler.h */,
+				384DAE191BB9D164001C85AE /* ScanFilter+Handler.m */,
+				384DADFD1BB9D14E001C85AE /* DataFormatConverter.h */,
+				384DADFE1BB9D14E001C85AE /* DataFormatConverter.m */,
 				38CD51AE19BA38290030BD4B /* lib */,
 				38CD518819BA15FD0030BD4B /* LifeCycleProxy.h */,
 				38CD518919BA15FD0030BD4B /* LifeCycleProxy.m */,
@@ -155,10 +240,24 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				384DAE261BB9D164001C85AE /* LSDatabaseManager.h in Headers */,
+				384DAE291BB9D164001C85AE /* BleDevice+Handler.h in Headers */,
+				384DAE251BB9D164001C85AE /* LSDatabaseAvailability.h in Headers */,
 				AA747D9F0F9514B9006C5449 /* ComIcsciencesHeartRateModule_Prefix.pch in Headers */,
+				384DAE2F1BB9D164001C85AE /* DeviceAlarmClock+Handler.h in Headers */,
+				384DAE211BB9D164001C85AE /* DeviceAlarmClock.h in Headers */,
+				384DAE281BB9D164001C85AE /* DatabaseManagerDelegate.h in Headers */,
+				384DAE1B1BB9D164001C85AE /* ScanFilter.h in Headers */,
+				384DAE1D1BB9D164001C85AE /* DeviceUser.h in Headers */,
 				24DD6CF91134B3F500162E58 /* ComIcsciencesHeartRateModuleModule.h in Headers */,
+				384DAE311BB9D164001C85AE /* ScanFilter+Handler.h in Headers */,
 				24DE9E1111C5FE74003F90F6 /* ComIcsciencesHeartRateModuleModuleAssets.h in Headers */,
+				384DAE1F1BB9D164001C85AE /* DeviceUserProfiles.h in Headers */,
 				38CD518A19BA15FD0030BD4B /* LifeCycleProxy.h in Headers */,
+				384DAE2B1BB9D164001C85AE /* DeviceUser+Handler.h in Headers */,
+				384DAE231BB9D164001C85AE /* BleDevice.h in Headers */,
+				384DAE2D1BB9D164001C85AE /* DeviceUserProfiles+Handler.h in Headers */,
+				384DADFF1BB9D14E001C85AE /* DataFormatConverter.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +287,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0700;
 			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "heartRateModule" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -233,8 +332,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				24DD6CFA1134B3F500162E58 /* ComIcsciencesHeartRateModuleModule.m in Sources */,
+				384DAE221BB9D164001C85AE /* DeviceAlarmClock.m in Sources */,
+				384DAE321BB9D164001C85AE /* ScanFilter+Handler.m in Sources */,
+				384DAE271BB9D164001C85AE /* LSDatabaseManager.m in Sources */,
+				384DAE241BB9D164001C85AE /* BleDevice.m in Sources */,
+				384DAE301BB9D164001C85AE /* DeviceAlarmClock+Handler.m in Sources */,
+				38BBBC911BF13763008FFE49 /* Model.xcdatamodel in Sources */,
+				384DAE2E1BB9D164001C85AE /* DeviceUserProfiles+Handler.m in Sources */,
+				384DAE201BB9D164001C85AE /* DeviceUserProfiles.m in Sources */,
+				384DAE2A1BB9D164001C85AE /* BleDevice+Handler.m in Sources */,
+				384DAE1C1BB9D164001C85AE /* ScanFilter.m in Sources */,
+				384DAE2C1BB9D164001C85AE /* DeviceUser+Handler.m in Sources */,
 				38CD518B19BA15FD0030BD4B /* LifeCycleProxy.m in Sources */,
 				24DE9E1211C5FE74003F90F6 /* ComIcsciencesHeartRateModuleModuleAssets.m in Sources */,
+				384DAE1E1BB9D164001C85AE /* DeviceUser.m in Sources */,
+				384DAE001BB9D14E001C85AE /* DataFormatConverter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,7 +365,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DSTROOT = /tmp/ComIcsciencesHeartRateModule.dst;
@@ -286,7 +397,10 @@
 					"-DDEBUG",
 					"-DTI_POST_1_2",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = ComIcsciencesHeartRateModule;
 				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -302,7 +416,6 @@
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				DSTROOT = /tmp/ComIcsciencesHeartRateModule.dst;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -331,7 +444,10 @@
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DTI_POST_1_2";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = ComIcsciencesHeartRateModule;
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				SDKROOT = iphoneos;
@@ -344,10 +460,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DSTROOT = /tmp/ComIcsciencesHeartRateModule.dst;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -364,8 +480,8 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				ONLY_ACTIVE_ARCH = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = (
 					"-DDEBUG",
 					"-DTI_POST_1_2",
@@ -386,7 +502,6 @@
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				DSTROOT = /tmp/ComIcsciencesHeartRateModule.dst;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_MODEL_TUNING = G5;
@@ -404,7 +519,7 @@
 				GCC_WARN_UNUSED_VALUE = NO;
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DTI_POST_1_2";
 				OTHER_LDFLAGS = "-ObjC";
@@ -420,7 +535,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -434,7 +548,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 24DD6D1B1134B66800162E58 /* titanium.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_FIX_AND_CONTINUE = NO;

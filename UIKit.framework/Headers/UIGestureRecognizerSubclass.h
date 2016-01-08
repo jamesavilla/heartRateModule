@@ -2,15 +2,17 @@
 //  UIGestureRecognizerSubclass.h
 //  UIKit
 //
-//  Copyright (c) 2008-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2008-2014 Apple Inc. All rights reserved.
 //
 
 #import <UIKit/UIGestureRecognizer.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 // the extensions in this header are to be used only by subclasses of UIGestureRecognizer
 // code that uses UIGestureRecognizers must never call these
 
-@interface UIGestureRecognizer (ForSubclassEyesOnly)
+@interface UIGestureRecognizer (UIGestureRecognizerProtected)
 
 // readonly for users of a gesture recognizer. may only be changed by direct subclasses of UIGestureRecognizer
 @property(nonatomic,readwrite) UIGestureRecognizerState state;  // the current state of the gesture recognizer. can only be set by subclasses of UIGestureRecognizer, but can be read by consumers
@@ -37,9 +39,11 @@
 // mirror of the touch-delivery methods on UIResponder
 // UIGestureRecognizers aren't in the responder chain, but observe touches hit-tested to their view and their view's subviews
 // UIGestureRecognizers receive touches before the view to which the touch was hit-tested
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event;
-- (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event;
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event;
 
 @end
+
+NS_ASSUME_NONNULL_END

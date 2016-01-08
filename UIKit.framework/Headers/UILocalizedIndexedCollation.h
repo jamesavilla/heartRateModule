@@ -2,33 +2,23 @@
 //  UILocalizedIndexedCollation.h
 //  UIKit
 //
-//  Copyright (c) 2009-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2009-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKitDefines.h>
 
-NS_CLASS_AVAILABLE_IOS(3_0) @interface UILocalizedIndexedCollation : NSObject
-{
-  @package
-    NSLocale *_locale;
-    NSArray *_sectionTitles;
-    NSArray *_sectionStartStrings;
-    NSArray *_sectionIndexTitles;
-    NSArray *_sectionIndexMapping;
-    NSString *_transform;
-    NSString *_firstSectionStartString;
-    NSString *_lastSectionStartString;
-    CFStringTokenizerRef _tokenizer;
-}
+NS_ASSUME_NONNULL_BEGIN
 
-+ (id)currentCollation;
+NS_CLASS_AVAILABLE_IOS(3_0) @interface UILocalizedIndexedCollation : NSObject
+
++ (instancetype)currentCollation;
 
 // Provides the list of section titles used to group results (e.g. A-Z,# in US/English)
-@property(nonatomic, readonly) NSArray *sectionTitles;
+@property(nonatomic, readonly) NSArray<NSString *> * sectionTitles;
 
 // Provides the list of index titles used to quickly jump to particular sections
-@property(nonatomic, readonly) NSArray *sectionIndexTitles;
+@property(nonatomic, readonly) NSArray<NSString *> *sectionIndexTitles;
 
 // Specifies the section that should be scrolled to for the title at the given index.
 // This method allows you to map between a given item in the index
@@ -46,3 +36,5 @@ NS_CLASS_AVAILABLE_IOS(3_0) @interface UILocalizedIndexedCollation : NSObject
 - (NSArray *)sortedArrayFromArray:(NSArray *)array collationStringSelector:(SEL)selector;
 
 @end
+
+NS_ASSUME_NONNULL_END

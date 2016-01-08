@@ -2,7 +2,7 @@
 //  UIInterface.h
 //  UIKit
 //
-//  Copyright (c) 2005-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2005-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -12,6 +12,8 @@
 
 // for UINavigationBar and UIToolBar
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, UIBarStyle) {
     UIBarStyleDefault          = 0,
     UIBarStyleBlack            = 1,
@@ -20,16 +22,19 @@ typedef NS_ENUM(NSInteger, UIBarStyle) {
     UIBarStyleBlackTranslucent = 2, // Deprecated. Use UIBarStyleBlack and set the translucent property to YES
 };
 
+typedef NS_ENUM(NSInteger, UIUserInterfaceSizeClass) {
+    UIUserInterfaceSizeClassUnspecified = 0,
+    UIUserInterfaceSizeClassCompact     = 1,
+    UIUserInterfaceSizeClassRegular     = 2,
+} NS_ENUM_AVAILABLE_IOS(8_0);
+
 // System colors
 
 @interface UIColor (UIColorSystemColors)
 + (UIColor *)lightTextColor;                // for a dark background
 + (UIColor *)darkTextColor;                 // for a light background
 
-// Group style table view backgrounds can no longer be represented by a simple color.
-// If you want to have a background in your own view that looks like the table view background,
-// then you should create an empty table view and place it behind your content.
-+ (UIColor *)groupTableViewBackgroundColor; // This method will be deprecated during the 6.0 seed program
++ (UIColor *)groupTableViewBackgroundColor;
 
 + (UIColor *)viewFlipsideBackgroundColor NS_DEPRECATED_IOS(2_0, 7_0);
 + (UIColor *)scrollViewTexturedBackgroundColor NS_DEPRECATED_IOS(3_2, 7_0);
@@ -44,3 +49,5 @@ typedef NS_ENUM(NSInteger, UIBarStyle) {
 + (CGFloat)smallSystemFontSize;
 + (CGFloat)systemFontSize;
 @end
+
+NS_ASSUME_NONNULL_END

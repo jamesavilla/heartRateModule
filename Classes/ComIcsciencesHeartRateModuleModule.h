@@ -6,9 +6,11 @@
  */
 #import "TiModule.h"
 #import <UIKit/UIKit.h>
-#import <LSBLE__A2/LSBLE_A2.h>
+#import <LifesenseBluetooth/LSBLEDeviceManager.h>
 
-@interface ComIcsciencesHeartRateModuleModule : TiModule <LSHardwareConnectorDelegate>
+#define DEFAULT_USER_ID @"10000"
+
+@interface ComIcsciencesHeartRateModuleModule : TiModule <LSBlePairingDelegate>
 {
     KrollCallback *successCallback;
     KrollCallback *cancelCallback;
@@ -16,6 +18,7 @@
     
     float heightVar;
     float weightVar;
+    
 }
 
 @end

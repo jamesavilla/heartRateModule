@@ -2,12 +2,14 @@
 //  UIBezierPath.h
 //  UIKit
 //
-//  Copyright (c) 2009-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2009-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKitDefines.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_OPTIONS(NSUInteger, UIRectCorner) {
     UIRectCornerTopLeft     = 1 << 0,
@@ -17,31 +19,23 @@ typedef NS_OPTIONS(NSUInteger, UIRectCorner) {
     UIRectCornerAllCorners  = ~0UL
 };
 
-NS_CLASS_AVAILABLE_IOS(3_2) @interface UIBezierPath : NSObject<NSCopying, NSCoding> {
-@private
-    CGPathRef _path;
-    CGFloat *_lineDashPattern;
-    NSUInteger _lineDashPatternCount;
-    CGFloat _lineWidth, _miterLimit, _flatness, _lineDashPhase;
-    CGLineCap _lineCapStyle;
-    CGLineJoin _lineJoinStyle;
-    BOOL _usesEvenOddFillRule;
-    CGPathRef _immutablePath;
-    BOOL _immutablePathIsValid;
-}
+NS_CLASS_AVAILABLE_IOS(3_2) @interface UIBezierPath : NSObject<NSCopying, NSCoding>
 
-+ (UIBezierPath *)bezierPath;
-+ (UIBezierPath *)bezierPathWithRect:(CGRect)rect;
-+ (UIBezierPath *)bezierPathWithOvalInRect:(CGRect)rect;
-+ (UIBezierPath *)bezierPathWithRoundedRect:(CGRect)rect cornerRadius:(CGFloat)cornerRadius; // rounds all corners with the same horizontal and vertical radius
-+ (UIBezierPath *)bezierPathWithRoundedRect:(CGRect)rect byRoundingCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii;
-+ (UIBezierPath *)bezierPathWithArcCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise;
-+ (UIBezierPath *)bezierPathWithCGPath:(CGPathRef)CGPath;
++ (instancetype)bezierPath;
++ (instancetype)bezierPathWithRect:(CGRect)rect;
++ (instancetype)bezierPathWithOvalInRect:(CGRect)rect;
++ (instancetype)bezierPathWithRoundedRect:(CGRect)rect cornerRadius:(CGFloat)cornerRadius; // rounds all corners with the same horizontal and vertical radius
++ (instancetype)bezierPathWithRoundedRect:(CGRect)rect byRoundingCorners:(UIRectCorner)corners cornerRadii:(CGSize)cornerRadii;
++ (instancetype)bezierPathWithArcCenter:(CGPoint)center radius:(CGFloat)radius startAngle:(CGFloat)startAngle endAngle:(CGFloat)endAngle clockwise:(BOOL)clockwise;
++ (instancetype)bezierPathWithCGPath:(CGPathRef)CGPath;
+
+- (instancetype)init NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder NS_DESIGNATED_INITIALIZER;
 
 // Returns an immutable CGPathRef which is only valid until the UIBezierPath is further mutated.
 // Setting the path will create an immutable copy of the provided CGPathRef, so any further mutations on a provided CGMutablePathRef will be ignored.
 @property(nonatomic) CGPathRef CGPath;
-- (CGPathRef)CGPath NS_RETURNS_INNER_POINTER;
+- (CGPathRef)CGPath NS_RETURNS_INNER_POINTER CF_RETURNS_NOT_RETAINED;
 
 // Path construction
 
@@ -82,8 +76,8 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIBezierPath : NSObject<NSCopying, NSCodi
 @property(nonatomic) CGFloat flatness;
 @property(nonatomic) BOOL usesEvenOddFillRule; // Default is NO. When YES, the even-odd fill rule is used for drawing, clipping, and hit testing.
 
-- (void)setLineDash:(const CGFloat *)pattern count:(NSInteger)count phase:(CGFloat)phase;
-- (void)getLineDash:(CGFloat *)pattern count:(NSInteger *)count phase:(CGFloat *)phase;
+- (void)setLineDash:(nullable const CGFloat *)pattern count:(NSInteger)count phase:(CGFloat)phase;
+- (void)getLineDash:(nullable CGFloat *)pattern count:(nullable NSInteger *)count phase:(nullable CGFloat *)phase;
 
 // Path operations on the current graphics context
 
@@ -97,3 +91,5 @@ NS_CLASS_AVAILABLE_IOS(3_2) @interface UIBezierPath : NSObject<NSCopying, NSCodi
 - (void)addClip;
 
 @end
+
+NS_ASSUME_NONNULL_END

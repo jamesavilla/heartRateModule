@@ -2,12 +2,14 @@
 //  UIViewControllerTransitioning.h
 //  UIKit
 //
-//  Copyright (c) 2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2013-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIViewController.h>
 #import <UIKit/UIViewControllerTransitionCoordinator.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class UIView;
 
@@ -16,6 +18,9 @@
 
 UIKIT_EXTERN NSString *const UITransitionContextFromViewControllerKey NS_AVAILABLE_IOS(7_0);
 UIKIT_EXTERN NSString *const UITransitionContextToViewControllerKey NS_AVAILABLE_IOS(7_0);
+
+UIKIT_EXTERN NSString *const UITransitionContextFromViewKey NS_AVAILABLE_IOS(8_0);
+UIKIT_EXTERN NSString *const UITransitionContextToViewKey NS_AVAILABLE_IOS(8_0);
 
 // A transition context object is constructed by the system and passed to the
 // animator in its animateTransition: and transitionDuration: methods as well as
@@ -55,7 +60,7 @@ UIKIT_EXTERN NSString *const UITransitionContextToViewControllerKey NS_AVAILABLE
 @protocol UIViewControllerContextTransitioning <NSObject>
 
 // The view in which the animated transition should take place.
-- (UIView *)containerView;
+- (nullable UIView *)containerView;
 
 // Most of the time this is YES. For custom transitions that use the new UIModalPresentationCustom
 // presentation type we will invoke the animateTransition: even though the transition should not be
@@ -88,7 +93,17 @@ UIKIT_EXTERN NSString *const UITransitionContextToViewControllerKey NS_AVAILABLE
 // Currently only two keys are defined by the
 // system - UITransitionContextToViewControllerKey, and
 // UITransitionContextFromViewControllerKey. 
-- (UIViewController *)viewControllerForKey:(NSString *)key;
+// Animators should not directly manipulate a view controller's views and should
+// use viewForKey: to get views instead.
+- (nullable __kindof UIViewController *)viewControllerForKey:(NSString *)key;
+
+// Currently only two keys are defined by the system -
+// UITransitionContextFromViewKey, and UITransitionContextToViewKey
+// viewForKey: may return nil which would indicate that the animator should not
+// manipulate the associated view controller's view.
+- (nullable __kindof UIView *)viewForKey:(NSString *)key NS_AVAILABLE_IOS(8_0);
+
+- (CGAffineTransform)targetTransform NS_AVAILABLE_IOS(8_0);
 
 // The frame's are set to CGRectZero when they are not known or
 // otherwise undefined.  For example the finalFrame of the
@@ -104,7 +119,7 @@ UIKIT_EXTERN NSString *const UITransitionContextToViewControllerKey NS_AVAILABLE
 
 // This is used for percent driven interactive transitions, as well as for container controllers that have companion animations that might need to
 // synchronize with the main animation. 
-- (NSTimeInterval)transitionDuration:(id <UIViewControllerContextTransitioning>)transitionContext;
+- (NSTimeInterval)transitionDuration:(nullable id <UIViewControllerContextTransitioning>)transitionContext;
 // This method can only  be a nop if the transition is interactive and not a percentDriven interactive transition.
 - (void)animateTransition:(id <UIViewControllerContextTransitioning>)transitionContext;
 
@@ -126,17 +141,20 @@ UIKIT_EXTERN NSString *const UITransitionContextToViewControllerKey NS_AVAILABLE
 
 @end
 
+@class UIPresentationController;
 
 @protocol UIViewControllerTransitioningDelegate <NSObject>
 
 @optional
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source;
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source;
 
-- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed;
+- (nullable id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed;
 
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator;
+- (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id <UIViewControllerAnimatedTransitioning>)animator;
 
-- (id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator;
+- (nullable id <UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id <UIViewControllerAnimatedTransitioning>)animator;
+
+- (nullable UIPresentationController *)presentationControllerForPresentedViewController:(UIViewController *)presented presentingViewController:(UIViewController *)presenting sourceViewController:(UIViewController *)source NS_AVAILABLE_IOS(8_0);
 
 @end
 
@@ -176,4 +194,6 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface UIPercentDrivenInteractiveTransition : NS
 - (void)finishInteractiveTransition;
 
 @end
+
+NS_ASSUME_NONNULL_END
 

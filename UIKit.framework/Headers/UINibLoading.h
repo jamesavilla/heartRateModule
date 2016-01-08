@@ -2,7 +2,7 @@
 //  UINibLoading.h
 //  UIKit
 //
-//  Copyright (c) 2005-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2005-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -16,6 +16,7 @@ UIKIT_EXTERN NSString * const UINibExternalObjects NS_AVAILABLE_IOS(3_0);
 
 @interface NSObject(UINibLoadingAdditions)
 - (void)awakeFromNib;
+- (void)prepareForInterfaceBuilder NS_AVAILABLE_IOS(8_0);
 @end
 
 UIKIT_EXTERN NSString * const UINibProxiedObjectsKey NS_DEPRECATED_IOS(2_0, 3_0);

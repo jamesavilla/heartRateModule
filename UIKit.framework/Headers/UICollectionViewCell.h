@@ -2,12 +2,14 @@
 //  UICollectionViewCell.h
 //  UIKit
 //
-//  Copyright (c) 2011-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2011-2014 Apple Inc. All rights reserved.
 //
 
 #import <UIKit/UIView.h>
 #import <UIKit/UIKitDefines.h>
 #import <UIKit/UICollectionView.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class UICollectionViewLayout;
 @class UICollectionView;
@@ -16,7 +18,7 @@
 
 NS_CLASS_AVAILABLE_IOS(6_0) @interface UICollectionReusableView : UIView
 
-@property (nonatomic, readonly, copy) NSString *reuseIdentifier;
+@property (nonatomic, readonly, copy, nullable) NSString *reuseIdentifier;
 
 // Override point.
 // Called by the collection view before the instance is returned from the reuse queue.
@@ -26,11 +28,14 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface UICollectionReusableView : UIView
 // Classes that want to support custom layout attributes specific to a given UICollectionViewLayout subclass can apply them here.
 // This allows the view to work in conjunction with a layout class that returns a custom subclass of UICollectionViewLayoutAttributes from -layoutAttributesForItem: or the corresponding layoutAttributesForHeader/Footer methods.
 // -applyLayoutAttributes: is then called after the view is added to the collection view and just before the view is returned from the reuse queue.
+// Note that -applyLayoutAttributes: is only called when attributes change, as defined by -isEqual:.
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes;
 
 // Override these methods to provide custom UI for specific layouts.
 - (void)willTransitionFromLayout:(UICollectionViewLayout *)oldLayout toLayout:(UICollectionViewLayout *)newLayout;
 - (void)didTransitionFromLayout:(UICollectionViewLayout *)oldLayout toLayout:(UICollectionViewLayout *)newLayout;
+
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes NS_AVAILABLE_IOS(8_0);
 
 @end
 
@@ -47,7 +52,9 @@ NS_CLASS_AVAILABLE_IOS(6_0) @interface UICollectionViewCell : UICollectionReusab
 
 // The background view is a subview behind all other views.
 // If selectedBackgroundView is different than backgroundView, it will be placed above the background view and animated in on selection.
-@property (nonatomic, retain) UIView *backgroundView;
-@property (nonatomic, retain) UIView *selectedBackgroundView;
+@property (nonatomic, strong, nullable) UIView *backgroundView;
+@property (nonatomic, strong, nullable) UIView *selectedBackgroundView;
 
 @end
+
+NS_ASSUME_NONNULL_END

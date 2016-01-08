@@ -1,4 +1,4 @@
-framework module UIKit [system] {
+framework module UIKit [extern_c] {
   umbrella header "UIKit.h"
 
   export *

@@ -2,11 +2,13 @@
 //  UIPrintError.h
 //  UIKit
 //
-//  Copyright 2010-2012, Apple Inc. All rights reserved.
+//  Copyright 2010-2012 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKitDefines.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 UIKIT_EXTERN NSString *const UIPrintErrorDomain;
 
@@ -16,3 +18,5 @@ enum {
     UIPrintUnknownImageFormatError,   // unrecognized image format
     UIPrintJobFailedError,            // internal error with print job
 };
+
+NS_ASSUME_NONNULL_END

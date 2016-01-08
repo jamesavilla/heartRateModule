@@ -2,16 +2,20 @@
 //  UIStoryboardPopoverSegue.h
 //  UIKit
 //
-//  Copyright 2011-2012, Apple Inc. All rights reserved.
+//  Copyright 2011-2012 Apple Inc. All rights reserved.
 //
 
 #import <UIKit/UIStoryboardSegue.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class UIPopoverController;
 
-NS_CLASS_AVAILABLE_IOS(5_0) @interface UIStoryboardPopoverSegue : UIStoryboardSegue {
+NS_CLASS_DEPRECATED_IOS(5_0, 9_0, "Access destinationViewController.popoverPresentationController from your segue's performHandler or override of -perform") @interface UIStoryboardPopoverSegue : UIStoryboardSegue {
 }
 
-@property (nonatomic, retain, readonly) UIPopoverController *popoverController;
+@property (nonatomic, strong, readonly) UIPopoverController *popoverController;
 
 @end
+
+NS_ASSUME_NONNULL_END

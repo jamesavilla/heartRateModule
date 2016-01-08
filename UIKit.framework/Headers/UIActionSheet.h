@@ -2,7 +2,7 @@
 //  UIActionSheet.h
 //  UIKit
 //
-//  Copyright 2010-2012, Apple Inc. All rights reserved.
+//  Copyright 2010-2012 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,6 +10,7 @@
 #import <UIKit/UITextField.h>
 #import <UIKit/UIView.h>
 
+NS_ASSUME_NONNULL_BEGIN
 
 @protocol UIActionSheetDelegate;
 @class UILabel, UIToolbar, UITabBar, UIWindow, UIBarButtonItem, UIPopoverController;
@@ -18,21 +19,22 @@ typedef NS_ENUM(NSInteger, UIActionSheetStyle) {
     UIActionSheetStyleAutomatic        = -1,       // take appearance from toolbar style otherwise uses 'default'
     UIActionSheetStyleDefault          = UIBarStyleDefault,
     UIActionSheetStyleBlackTranslucent = UIBarStyleBlackTranslucent,
-    UIActionSheetStyleBlackOpaque      = UIBarStyleBlackOpaque,
+    UIActionSheetStyleBlackOpaque      = UIBarStyleBlackOpaque ,
 };
 
-NS_CLASS_AVAILABLE_IOS(2_0) @interface UIActionSheet : UIView
+NS_CLASS_DEPRECATED_IOS(2_0, 8_3, "UIActionSheet is deprecated. Use UIAlertController with a preferredStyle of UIAlertControllerStyleActionSheet instead")
+@interface UIActionSheet : UIView
 
-- (id)initWithTitle:(NSString *)title delegate:(id<UIActionSheetDelegate>)delegate cancelButtonTitle:(NSString *)cancelButtonTitle destructiveButtonTitle:(NSString *)destructiveButtonTitle otherButtonTitles:(NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION;
+- (instancetype)initWithTitle:(nullable NSString *)title delegate:(nullable id<UIActionSheetDelegate>)delegate cancelButtonTitle:(nullable NSString *)cancelButtonTitle destructiveButtonTitle:(nullable NSString *)destructiveButtonTitle otherButtonTitles:(nullable NSString *)otherButtonTitles, ... NS_REQUIRES_NIL_TERMINATION NS_EXTENSION_UNAVAILABLE_IOS("Use UIAlertController instead.");
 
-@property(nonatomic,assign) id<UIActionSheetDelegate> delegate;    // weak reference
+@property(nullable,nonatomic,weak) id<UIActionSheetDelegate> delegate;
 @property(nonatomic,copy) NSString *title;
 @property(nonatomic) UIActionSheetStyle actionSheetStyle; // default is UIActionSheetStyleAutomatic. ignored if alert is visible
 
 // adds a button with the title. returns the index (0 based) of where it was added. buttons are displayed in the order added except for the
 // destructive and cancel button which will be positioned based on HI requirements. buttons cannot be customized.
-- (NSInteger)addButtonWithTitle:(NSString *)title;    // returns index of button. 0 based.
-- (NSString *)buttonTitleAtIndex:(NSInteger)buttonIndex;
+- (NSInteger)addButtonWithTitle:(nullable NSString *)title;    // returns index of button. 0 based.
+- (nullable NSString *)buttonTitleAtIndex:(NSInteger)buttonIndex;
 @property(nonatomic,readonly) NSInteger numberOfButtons;
 @property(nonatomic) NSInteger cancelButtonIndex;      // if the delegate does not implement -actionSheetCancel:, we pretend this button was clicked on. default is -1
 @property(nonatomic) NSInteger destructiveButtonIndex;        // sets destructive (red) button. -1 means none set. default is -1. ignored if only one button
@@ -40,7 +42,7 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIActionSheet : UIView
 @property(nonatomic,readonly) NSInteger firstOtherButtonIndex;	// -1 if no otherButtonTitles or initWithTitle:... not used
 @property(nonatomic,readonly,getter=isVisible) BOOL visible;
 
-// show a sheet animated. you can specify either a toolbar, a tab bar, a bar butto item or a plain view. We do a special animation if the sheet rises from
+// show a sheet animated. you can specify either a toolbar, a tab bar, a bar button item or a plain view. We do a special animation if the sheet rises from
 // a toolbar, tab bar or bar button item and we will automatically select the correct style based on the bar style. if not from a bar, we use
 // UIActionSheetStyleDefault if automatic style set
 - (void)showFromToolbar:(UIToolbar *)view;
@@ -56,21 +58,24 @@ NS_CLASS_AVAILABLE_IOS(2_0) @interface UIActionSheet : UIView
 @end
 
 
+
 @protocol UIActionSheetDelegate <NSObject>
 @optional
 
 // Called when a button is clicked. The view will be automatically dismissed after this call returns
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex;
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex NS_DEPRECATED_IOS(2_0, 8_3);
 
 // Called when we cancel a view (eg. the user clicks the Home button). This is not called when the user clicks the cancel button.
 // If not defined in the delegate, we simulate a click in the cancel button
-- (void)actionSheetCancel:(UIActionSheet *)actionSheet;
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet NS_DEPRECATED_IOS(2_0, 8_3);
 
-- (void)willPresentActionSheet:(UIActionSheet *)actionSheet;  // before animation and showing view
-- (void)didPresentActionSheet:(UIActionSheet *)actionSheet;  // after animation
+- (void)willPresentActionSheet:(UIActionSheet *)actionSheet NS_DEPRECATED_IOS(2_0, 8_3);  // before animation and showing view
+- (void)didPresentActionSheet:(UIActionSheet *)actionSheet NS_DEPRECATED_IOS(2_0, 8_3);  // after animation
 
-- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex; // before animation and hiding view
-- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex;  // after animation
+- (void)actionSheet:(UIActionSheet *)actionSheet willDismissWithButtonIndex:(NSInteger)buttonIndex NS_DEPRECATED_IOS(2_0, 8_3); // before animation and hiding view
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex NS_DEPRECATED_IOS(2_0, 8_3);  // after animation
 
 @end
+
+NS_ASSUME_NONNULL_END
 

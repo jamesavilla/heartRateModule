@@ -2,22 +2,22 @@
 //  NSTextStorage.h
 //  UIKit
 //
-//  Copyright (c) 2011-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2011-2015, Apple Inc. All rights reserved.
 //
 
 #import <Foundation/NSObject.h>
-#import <Foundation/NSNotification.h>
-#import <Foundation/NSAttributedString.h>
 #import <UIKit/NSAttributedString.h>
 
-@class NSArray, NSLayoutManager;
+@class NSArray, NSLayoutManager, NSNotification;
 
 @protocol NSTextStorageDelegate;
+
+NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_OPTIONS(NSUInteger, NSTextStorageEditActions) {
     NSTextStorageEditedAttributes = (1 << 0),
     NSTextStorageEditedCharacters = (1 << 1)
-} NS_ENUM_AVAILABLE_IOS(7_0);
+} NS_ENUM_AVAILABLE(10_11, 7_0);
 
 
 /* Note for subclassing NSTextStorage: NSTextStorage is a semi-abstract subclass of NSMutableAttributedString. It implements change management (beginEditing/endEditing), verification of attributes, delegate handling, and layout management notification. The one aspect it does not implement is the actual attributed string storage --- this is left up to the subclassers, which need to override the two NSMutableAttributedString primitives in addition to two NSAttributedString primitives:
@@ -31,12 +31,12 @@ typedef NS_OPTIONS(NSUInteger, NSTextStorageEditActions) {
  These primitives should perform the change then call edited:range:changeInLength: to get everything else to happen.
 */
 
-NS_CLASS_AVAILABLE_IOS(7_0) @interface NSTextStorage : NSMutableAttributedString
+NS_CLASS_AVAILABLE(10_0, 7_0) @interface NSTextStorage : NSMutableAttributedString
 
 /**************************** Layout manager ****************************/
 
 // NSLayoutManager objects owned by the receiver.
-@property(readonly, NS_NONATOMIC_IOSONLY) NSArray *layoutManagers;
+@property(readonly, copy, NS_NONATOMIC_IOSONLY) NSArray<NSLayoutManager *> *layoutManagers;
 
 // Adds aLayoutManager to the receiver.  Sends -[NSLayoutManager setTextStorage:] to aLayoutManager with the receiver.
 - (void)addLayoutManager:(NSLayoutManager *)aLayoutManager;
@@ -46,22 +46,21 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface NSTextStorage : NSMutableAttributedString
 
 
 /**************************** Pending edit info ****************************/
-/* These methods return information about the editing status. Especially useful when there are outstanding beginEditing calls or during processEditing...
-*/
+// These methods return information about the editing status. Especially useful when there are outstanding beginEditing calls or during processEditing...
 
 // The NSTextStorageEditActions mask indicating that there are pending changes for attributes, characters, or both.
-@property(NS_NONATOMIC_IOSONLY) NSTextStorageEditActions editedMask;
+@property(readonly, NS_NONATOMIC_IOSONLY) NSTextStorageEditActions editedMask;
 
 // The range for pending changes. {NSNotFound, 0} when there is no pending changes.
-@property(NS_NONATOMIC_IOSONLY) NSRange editedRange;
+@property(readonly, NS_NONATOMIC_IOSONLY) NSRange editedRange;
 
 // The length delta for the pending changes.
-@property(NS_NONATOMIC_IOSONLY) NSInteger changeInLength;
+@property(readonly, NS_NONATOMIC_IOSONLY) NSInteger changeInLength;
 
 
 /**************************** Delegate ****************************/
 
-@property(assign, NS_NONATOMIC_IOSONLY) id <NSTextStorageDelegate> delegate;
+@property(nullable, assign, NS_NONATOMIC_IOSONLY) id <NSTextStorageDelegate> delegate;
 
 
 /**************************** Edit management ****************************/
@@ -93,15 +92,18 @@ NS_CLASS_AVAILABLE_IOS(7_0) @interface NSTextStorage : NSMutableAttributedString
 @optional
 
 // Sent inside -processEditing right before fixing attributes.  Delegates can change the characters or attributes.
-- (void)textStorage:(NSTextStorage *)textStorage willProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta NS_AVAILABLE_IOS(7_0);
+- (void)textStorage:(NSTextStorage *)textStorage willProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta NS_AVAILABLE(10_11, 7_0);
 
 // Sent inside -processEditing right before notifying layout managers.  Delegates can change the attributes.
-- (void)textStorage:(NSTextStorage *)textStorage didProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta NS_AVAILABLE_IOS(7_0);
+- (void)textStorage:(NSTextStorage *)textStorage didProcessEditing:(NSTextStorageEditActions)editedMask range:(NSRange)editedRange changeInLength:(NSInteger)delta NS_AVAILABLE(10_11, 7_0);
 
 @end
 
-
 /**** Notifications ****/
 
-UIKIT_EXTERN NSString * const NSTextStorageWillProcessEditingNotification NS_AVAILABLE_IOS(7_0);
-UIKIT_EXTERN NSString * const NSTextStorageDidProcessEditingNotification NS_AVAILABLE_IOS(7_0);
+UIKIT_EXTERN NSString * const NSTextStorageWillProcessEditingNotification NS_AVAILABLE(10_0, 7_0);
+UIKIT_EXTERN NSString * const NSTextStorageDidProcessEditingNotification NS_AVAILABLE(10_0, 7_0);
+
+
+
+NS_ASSUME_NONNULL_END

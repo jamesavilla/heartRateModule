@@ -2,7 +2,7 @@
 //  UINibDeclarations.h
 //  UIKit
 //
-//  Copyright (c) 2005-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2005-2014 Apple Inc. All rights reserved.
 //
 
 #ifndef IBOutlet
@@ -16,3 +16,12 @@
 #ifndef IBAction
 #define IBAction void
 #endif
+
+#ifndef IBInspectable
+#define IBInspectable
+#endif
+
+#ifndef IB_DESIGNABLE
+#define IB_DESIGNABLE
+#endif
+

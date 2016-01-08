@@ -5,8 +5,14 @@
  *	@copyright 2012 Apple, Inc. All rights reserved.
  */
 
+#ifndef _CORE_BLUETOOTH_H_
+#warning Please do not import this header file directly. Use <CoreBluetooth/CoreBluetooth.h> instead.
+#endif
+
 #import <CoreBluetooth/CBDefines.h>
 #import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*!
  *  @constant CBAdvertisementDataLocalNameKey
@@ -84,3 +90,5 @@ CB_EXTERN NSString * const CBAdvertisementDataIsConnectable NS_AVAILABLE(NA, 7_0
  *
  */
 CB_EXTERN NSString * const CBAdvertisementDataSolicitedServiceUUIDsKey NS_AVAILABLE(NA, 7_0);
+
+NS_ASSUME_NONNULL_END

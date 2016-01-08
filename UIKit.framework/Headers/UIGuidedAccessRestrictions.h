@@ -2,11 +2,13 @@
 //  UIGuidedAccessRestrictions.h
 //  UIKit
 //
-//  Copyright (c) 2012-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2012-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKitDefines.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 /*
  UIGuidedAccessRestrictions
@@ -43,20 +45,22 @@ NS_CLASS_AVAILABLE_IOS(7_0) @protocol UIGuidedAccessRestrictionDelegate <NSObjec
  Each restriction identifier must be unique string.
  For example: com.MyCompany.MyApp.SomeRestrictionIdentifier
  */
-- (NSArray *)guidedAccessRestrictionIdentifiers;
+- (nullable NSArray<NSString *> *)guidedAccessRestrictionIdentifiers;
 
 // Called each time the restriction associated with the identifier changes state.
 - (void)guidedAccessRestrictionWithIdentifier:(NSString *)restrictionIdentifier didChangeState:(UIGuidedAccessRestrictionState)newRestrictionState;
 
 // Returns a localized string that describes the restriction associated with the identifier.
-- (NSString *)textForGuidedAccessRestrictionWithIdentifier:(NSString *)restrictionIdentifier;
+- (nullable NSString *)textForGuidedAccessRestrictionWithIdentifier:(NSString *)restrictionIdentifier;
 
 @optional
 
 // Returns a localized string that gives additional detail about the restriction associated with the identifier.
-- (NSString *)detailTextForGuidedAccessRestrictionWithIdentifier:(NSString *)restrictionIdentifier;
+- (nullable NSString *)detailTextForGuidedAccessRestrictionWithIdentifier:(NSString *)restrictionIdentifier;
 
 @end
 
 // Returns the state of the restriction associated with the identifier.
 UIKIT_EXTERN UIGuidedAccessRestrictionState UIGuidedAccessRestrictionStateForIdentifier(NSString *restrictionIdentifier) NS_AVAILABLE_IOS(7_0);
+
+NS_ASSUME_NONNULL_END

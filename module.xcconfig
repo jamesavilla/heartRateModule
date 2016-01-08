@@ -26,4 +26,4 @@
 // IMPORTANT NOTE: always use $(inherited) in your overrides
 // 
 
-OTHER_LDFLAGS=$(inherited) -F"/Users/Jim/Documents/Titanium_Studio_Workspace/heartRateModule/lib/" -framework LSBLE__A2
+OTHER_LDFLAGS=$(inherited) -F"/Users/Jim/Documents/Titanium_Studio_Workspace/heartRateModule/lib/" -framework LifesenseBluetooth -F"/Users/Jim/Documents/Titanium_Studio_Workspace/heartRateModule/" -framework CoreBluetooth -F"/Users/Jim/Documents/Titanium_Studio_Workspace/heartRateModule/" -framework CoreData -F"/Users/Jim/Documents/Titanium_Studio_Workspace/heartRateModule/" -framework UIKit

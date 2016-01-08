@@ -2,13 +2,15 @@
 //  UIGeometry.h
 //  UIKit
 //
-//  Copyright (c) 2005-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2005-2014 Apple Inc. All rights reserved.
 //
 
 
 #import <Foundation/Foundation.h>
 #import <CoreGraphics/CoreGraphics.h>
 #import <UIKit/UIKitDefines.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 typedef struct UIEdgeInsets {
     CGFloat top, left, bottom, right;  // specify amount to inset (positive) for each of the edges. values can be negative to 'outset'
@@ -57,6 +59,7 @@ UIKIT_EXTERN const UIEdgeInsets UIEdgeInsetsZero;
 UIKIT_EXTERN const UIOffset UIOffsetZero;
 
 UIKIT_EXTERN NSString *NSStringFromCGPoint(CGPoint point);
+UIKIT_EXTERN NSString *NSStringFromCGVector(CGVector vector);
 UIKIT_EXTERN NSString *NSStringFromCGSize(CGSize size);
 UIKIT_EXTERN NSString *NSStringFromCGRect(CGRect rect);
 UIKIT_EXTERN NSString *NSStringFromCGAffineTransform(CGAffineTransform transform);
@@ -64,6 +67,7 @@ UIKIT_EXTERN NSString *NSStringFromUIEdgeInsets(UIEdgeInsets insets);
 UIKIT_EXTERN NSString *NSStringFromUIOffset(UIOffset offset);
 
 UIKIT_EXTERN CGPoint CGPointFromString(NSString *string);
+UIKIT_EXTERN CGVector CGVectorFromString(NSString *string);
 UIKIT_EXTERN CGSize CGSizeFromString(NSString *string);
 UIKIT_EXTERN CGRect CGRectFromString(NSString *string);
 UIKIT_EXTERN CGAffineTransform CGAffineTransformFromString(NSString *string);
@@ -73,6 +77,7 @@ UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);
 @interface NSValue (NSValueUIGeometryExtensions)
 
 + (NSValue *)valueWithCGPoint:(CGPoint)point;
++ (NSValue *)valueWithCGVector:(CGVector)vector;
 + (NSValue *)valueWithCGSize:(CGSize)size;
 + (NSValue *)valueWithCGRect:(CGRect)rect;
 + (NSValue *)valueWithCGAffineTransform:(CGAffineTransform)transform;
@@ -80,6 +85,7 @@ UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);
 + (NSValue *)valueWithUIOffset:(UIOffset)insets NS_AVAILABLE_IOS(5_0);
 
 - (CGPoint)CGPointValue;
+- (CGVector)CGVectorValue;
 - (CGSize)CGSizeValue;
 - (CGRect)CGRectValue;
 - (CGAffineTransform)CGAffineTransformValue;
@@ -91,6 +97,7 @@ UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);
 @interface NSCoder (UIGeometryKeyedCoding)
 
 - (void)encodeCGPoint:(CGPoint)point forKey:(NSString *)key;
+- (void)encodeCGVector:(CGVector)vector forKey:(NSString *)key;
 - (void)encodeCGSize:(CGSize)size forKey:(NSString *)key;
 - (void)encodeCGRect:(CGRect)rect forKey:(NSString *)key;
 - (void)encodeCGAffineTransform:(CGAffineTransform)transform forKey:(NSString *)key;
@@ -98,6 +105,7 @@ UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);
 - (void)encodeUIOffset:(UIOffset)offset forKey:(NSString *)key NS_AVAILABLE_IOS(5_0);
 
 - (CGPoint)decodeCGPointForKey:(NSString *)key;
+- (CGVector)decodeCGVectorForKey:(NSString *)key;
 - (CGSize)decodeCGSizeForKey:(NSString *)key;
 - (CGRect)decodeCGRectForKey:(NSString *)key;
 - (CGAffineTransform)decodeCGAffineTransformForKey:(NSString *)key;
@@ -105,3 +113,5 @@ UIKIT_EXTERN UIOffset UIOffsetFromString(NSString *string);
 - (UIOffset)decodeUIOffsetForKey:(NSString *)key NS_AVAILABLE_IOS(5_0);
 
 @end
+
+NS_ASSUME_NONNULL_END

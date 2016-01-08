@@ -2,10 +2,11 @@
 //  UITextInputTraits.h
 //  UIKit
 //
-//  Copyright (c) 2006-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2006-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKitDefines.h>
 
 //
 // UITextAutocapitalizationType
@@ -109,6 +110,7 @@ typedef NS_ENUM(NSInteger, UIReturnKeyType) {
     UIReturnKeyYahoo,
     UIReturnKeyDone,
     UIReturnKeyEmergencyCall,
+    UIReturnKeyContinue NS_ENUM_AVAILABLE_IOS(9_0),
 };
 
 //

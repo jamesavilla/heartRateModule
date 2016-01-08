@@ -2,21 +2,37 @@
 //  UIKit.h
 //  UIKit
 //
-//  Copyright (c) 2005-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2005-2014 Apple Inc. All rights reserved.
 //
 
 #import <UIKit/UIKitDefines.h>
+
+#if __has_include(<UIKit/UIAccelerometer.h>)
 #import <UIKit/UIAccelerometer.h>
-#import <UIKit/UIAccessibility.h> 
+#import <UIKit/UIAccessibility.h>
+#endif
+
+#import <UIKit/UIAccessibilityConstants.h>
+
+#if __has_include(<UIKit/UIActivityIndicatorView.h>)
 #import <UIKit/UIActivityIndicatorView.h>
 #import <UIKit/UIActivity.h>
 #import <UIKit/UIActivityItemProvider.h>
 #import <UIKit/UIActivityViewController.h>
-#import <UIKit/UIAlert.h>
+#import <UIKit/UIActionSheet.h>
+#import <UIKit/UIAlertController.h>
+#import <UIKit/UIAlertView.h>
+#import <UIKit/UIAppearance.h>
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIBarButtonItem.h>
+#import <UIKit/UIBarButtonItemGroup.h>
 #import <UIKit/UIBarItem.h>
+#endif
+
+
 #import <UIKit/UIBezierPath.h>
+
+#if __has_include(<UIKit/UIButton.h>)
 #import <UIKit/UIButton.h>
 #import <UIKit/UICollectionView.h>
 #import <UIKit/UICollectionViewCell.h>
@@ -24,26 +40,54 @@
 #import <UIKit/UICollectionViewFlowLayout.h>
 #import <UIKit/UICollectionViewLayout.h>
 #import <UIKit/UICollectionViewTransitionLayout.h>
+#endif
+
 #import <UIKit/UIColor.h>
+
+#if __has_include(<UIKit/UIControl.h>)
 #import <UIKit/UIControl.h>
 #import <UIKit/UIDataDetectors.h>
 #import <UIKit/UIDatePicker.h>
 #import <UIKit/UIDevice.h>
 #import <UIKit/UIDocument.h>
 #import <UIKit/UIDocumentInteractionController.h>
+#import <UIKit/UIDocumentPickerViewController.h>
+#import <UIKit/UIDocumentMenuViewController.h>
+#import <UIKit/UIDocumentPickerExtensionViewController.h>
+#import <UIKit/NSFileProviderExtension.h>
+#import <UIKit/UIVisualEffectView.h>
 #import <UIKit/UIEvent.h>
+#endif
+
 #import <UIKit/UIFont.h>
 #import <UIKit/UIFontDescriptor.h>
 #import <UIKit/UIGeometry.h>
+
+#if __has_include(<UIKit/UIGestureRecognizer.h>)
 #import <UIKit/UIGestureRecognizer.h>
+#endif
+
 #import <UIKit/UIGraphics.h>
 #import <UIKit/UIImage.h>
+
+#if __has_include(<UIKit/UIImageAsset.h>)
+#import <UIKit/UIImageAsset.h>
+#import <UIKit/NSDataAsset.h>
 #import <UIKit/UIImagePickerController.h>
 #import <UIKit/UIImageView.h>
 #import <UIKit/UIInputView.h>
+#import <UIKit/UIInputViewController.h>
 #import <UIKit/UIInterface.h>
 #import <UIKit/UILabel.h>
+#import <UIKit/UILexicon.h>
+#endif
+
 #import <UIKit/UILocalNotification.h>
+
+#if __has_include(<UIKit/UIUserNotificationSettings.h>)
+
+#import <UIKit/UIApplicationShortcutItem.h>
+#import <UIKit/UIUserNotificationSettings.h>
 #import <UIKit/UILocalizedIndexedCollation.h>
 #import <UIKit/UILongPressGestureRecognizer.h>
 #import <UIKit/UIManagedDocument.h>
@@ -62,6 +106,8 @@
 #import <UIKit/UIPinchGestureRecognizer.h>
 #import <UIKit/UIPopoverController.h>
 #import <UIKit/UIPopoverBackgroundView.h>
+#import <UIKit/UIPrinter.h>
+#import <UIKit/UIPrinterPickerController.h>
 #import <UIKit/UIPrintError.h>
 #import <UIKit/UIPrintFormatter.h>
 #import <UIKit/UIPrintInfo.h>
@@ -78,6 +124,7 @@
 #import <UIKit/UIScreenMode.h>
 #import <UIKit/UIScrollView.h>
 #import <UIKit/UISearchBar.h>
+#import <UIKit/UISearchController.h>
 #import <UIKit/UISearchDisplayController.h>
 #import <UIKit/UISegmentedControl.h>
 #import <UIKit/UISlider.h>
@@ -104,29 +151,50 @@
 #import <UIKit/UITextView.h>
 #import <UIKit/UIToolbar.h>
 #import <UIKit/UITouch.h>
+#import <UIKit/UITraitCollection.h>
 #import <UIKit/UIVideoEditorController.h>
 #import <UIKit/UIView.h>
 #import <UIKit/UIViewController.h>
 #import <UIKit/UIWebView.h>
 #import <UIKit/UIWindow.h>
+#endif
+
 #import <UIKit/NSAttributedString.h>
+
+#if __has_include(<UIKit/NSLayoutConstraint.h>)
 #import <UIKit/NSLayoutConstraint.h>
+#import <UIKit/NSLayoutAnchor.h>
+#import <UIKit/UILayoutGuide.h>
+#import <UIKit/UIStackView.h>
 #import <UIKit/NSLayoutManager.h>
+#endif
+
 #import <UIKit/NSParagraphStyle.h>
+
+#if __has_include(<UIKit/NSShadow.h>)
 #import <UIKit/NSShadow.h>
+#endif
+
 #import <UIKit/NSStringDrawing.h>
 #import <UIKit/NSText.h>
+
+#if __has_include(<UIKit/NSTextAttachment.h>)
 #import <UIKit/NSTextAttachment.h>
 #import <UIKit/NSTextContainer.h>
 #import <UIKit/NSTextStorage.h>
 #import <UIKit/UIStateRestoration.h>
 #import <UIKit/UIViewControllerTransitioning.h>
 #import <UIKit/UIViewControllerTransitionCoordinator.h>
+#import <UIKit/UIPresentationController.h>
+#import <UIKit/UIPopoverPresentationController.h>
 #import <UIKit/UIDynamicAnimator.h>
 #import <UIKit/UIDynamicBehavior.h>
 #import <UIKit/UIPushBehavior.h>
 #import <UIKit/UISnapBehavior.h>
 #import <UIKit/UIDynamicItemBehavior.h>
+#import <UIKit/UIFieldBehavior.h>
 #import <UIKit/UIGravityBehavior.h>
 #import <UIKit/UIAttachmentBehavior.h>
 #import <UIKit/UICollisionBehavior.h>
+#import <UIKit/UIRegion.h>
+#endif

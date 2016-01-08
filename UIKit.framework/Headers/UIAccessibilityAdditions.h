@@ -2,7 +2,7 @@
 //  UIAccessibilityAdditions.h
 //  UIKit
 //
-//  Copyright (c) 2009-2013, Apple Inc. All rights reserved.
+//  Copyright (c) 2009-2014 Apple Inc. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -10,16 +10,20 @@
 #import <UIKit/UIPickerView.h>
 #import <UIKit/UIScrollView.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 /* 
   Optionally implement the following methods in a UIPickerView delegate
   in order to provide accessibility information per component. 
   See UIAccessibility.h for more information about hints and labels.
 */
+
+
 @protocol UIPickerViewAccessibilityDelegate <UIPickerViewDelegate>
 
 @optional
-- (NSString *)pickerView:(UIPickerView *)pickerView accessibilityLabelForComponent:(NSInteger)component;
-- (NSString *)pickerView:(UIPickerView *)pickerView accessibilityHintForComponent:(NSInteger)component;
+- (nullable NSString *)pickerView:(UIPickerView *)pickerView accessibilityLabelForComponent:(NSInteger)component;
+- (nullable NSString *)pickerView:(UIPickerView *)pickerView accessibilityHintForComponent:(NSInteger)component;
 
 @end
 
@@ -32,6 +36,8 @@
 @protocol UIScrollViewAccessibilityDelegate <UIScrollViewDelegate>
 
 @optional
-- (NSString *)accessibilityScrollStatusForScrollView:(UIScrollView *)scrollView;
+- (nullable NSString *)accessibilityScrollStatusForScrollView:(UIScrollView *)scrollView;
 
 @end
+
+NS_ASSUME_NONNULL_END
